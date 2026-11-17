@@ -46,8 +46,10 @@ DEPENDENCIES = {
 }
 
 
-def sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+def canonical_text_sha256(path: Path) -> str:
+    """Hash UTF-8 source text independently of checkout line endings."""
+    text = path.read_text(encoding="utf-8").replace("\r\n", "\n").replace("\r", "\n")
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 def build_manifest() -> dict[str, Any]:
@@ -130,10 +132,10 @@ def build_manifest() -> dict[str, Any]:
         "mode": "blackbox",
         "generated_from": ["AGENT_BRIEF.json", "truth/findings-baseline.json", "truth/cms-suite.json", "docker-compose.yml"],
         "source_digests": {
-            "AGENT_BRIEF.json": sha256(BRIEF_PATH),
-            "truth/findings-baseline.json": sha256(BASELINE_PATH),
-            "truth/cms-suite.json": sha256(CMS_PATH),
-            "docker-compose.yml": sha256(COMPOSE_PATH),
+            "AGENT_BRIEF.json": canonical_text_sha256(BRIEF_PATH),
+            "truth/findings-baseline.json": canonical_text_sha256(BASELINE_PATH),
+            "truth/cms-suite.json": canonical_text_sha256(CMS_PATH),
+            "docker-compose.yml": canonical_text_sha256(COMPOSE_PATH),
         },
         "safety": {
             "host_binding": "127.0.0.1",

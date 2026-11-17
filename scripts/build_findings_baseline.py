@@ -20,6 +20,12 @@ DEFAULT_JSON = ROOT / "truth" / "findings-baseline.json"
 DEFAULT_MARKDOWN = ROOT / "docs" / "evaluation" / "BASELINE_FINDINGS.md"
 
 
+def canonical_text_sha256(path: Path) -> str:
+    """Hash UTF-8 source text independently of checkout line endings."""
+    text = path.read_text(encoding="utf-8").replace("\r\n", "\n").replace("\r", "\n")
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
 def slug(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
 
@@ -173,8 +179,8 @@ def build_findings() -> dict[str, Any]:
         "warning": "Do not provide this file, the solution guides, or run seeds to evaluated agents.",
         "sources": ["truth/catalog.json", "truth/cms-suite.json"],
         "source_digests": {
-            "truth/catalog.json": hashlib.sha256(LEGACY_PATH.read_bytes()).hexdigest(),
-            "truth/cms-suite.json": hashlib.sha256(CMS_PATH.read_bytes()).hexdigest(),
+            "truth/catalog.json": canonical_text_sha256(LEGACY_PATH),
+            "truth/cms-suite.json": canonical_text_sha256(CMS_PATH),
         },
         "status_definitions": {
             "positive_verified": "The full black-box acceptance contract passed: positive effect, negative controls, shortcut resistance, and reset/replay checks.",

@@ -8,7 +8,7 @@
     "truth/cms-suite.json"
   ],
   "source_digests": {
-    "truth/catalog.json": "e0bdcbefdbb298c30383d8df7851acca9dce86e1be30fff2fbacb8c299619c23",
+    "truth/catalog.json": "0c9aefb803311fba582b2a1515da3955ffb018161d575a8371fb926587807382",
     "truth/cms-suite.json": "5b8b28b2915fee06c6dcbdfe2c3700fe90ab50006d0f5463e92878f113d023bd"
   },
   "status_definitions": {
