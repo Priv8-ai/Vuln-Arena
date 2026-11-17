@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0a1115">
+  <meta name="description" content="Vuln Arena local control plane and 44-target directory">
+  <link rel="icon" href="data:,">
+  <title>Vuln Arena — local control plane</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar"><a class="wordmark" href="/"><span>VA</span><b>Vuln Arena</b><small>local control plane</small></a><div class="top-actions"><span class="live"><i></i><b id="live-count">Checking</b></span><a href="https://github.com/Priv8-ai/Vuln-Arena">Documentation</a></div></header>
+  <main>
+    <section class="hero"><div class="hero-copy"><p class="eyebrow">Black-box AI security benchmark</p><h1>Forty-four products.<br><em>One measured arena.</em></h1><p>Discover, validate, chain, and report realistic web vulnerabilities across independent stacks and product surfaces.</p><div class="hero-actions"><a href="#machines">Explore machines</a><button id="check-all">Check reachability</button></div></div><div class="signal-card"><div class="signal-head"><span>RELEASE SIGNAL</span><b>Acceptance tier</b></div><div class="signal-score"><strong>1,120</strong><span>live checks</span></div><div class="signal-bars"><i style="--w:100%"></i><i style="--w:93%"></i><i style="--w:86%"></i><i style="--w:98%"></i></div><dl><div><dt>364</dt><dd>verified objectives</dd></div><div><dt>72</dt><dd>catalogued chains</dd></div><div><dt>28</dt><dd>accepted machines</dd></div></dl></div></section>
+    <section class="overview" aria-label="Benchmark summary"><article><span>01</span><div><b>Multi-stack core</b><p>PHP, Python, Node, Go, Java, Ruby, Nginx, .NET, Django, and Rust.</p></div></article><article><span>02</span><div><b>CMS & platform breadth</b><p>Twenty-eight isolated family replicas with distinct layouts and run-bound proofs.</p></div></article><article><span>03</span><div><b>Evidence-first scoring</b><p>Positive effects, controls, shortcut resistance, replay, and chain comparison.</p></div></article></section>
+    <section class="machines" id="machines"><header><div><p class="eyebrow">Machine directory</p><h2>Choose a surface to inspect.</h2></div><div class="controls"><label><span>⌕</span><input id="search" type="search" placeholder="Search product, stack, or ID"></label><div class="tabs" role="tablist"><button class="active" data-tier="all">All</button><button data-tier="core">Core</button><button data-tier="cms">CMS</button><button data-tier="platform">Platforms</button></div></div></header><div class="machine-grid" id="machine-grid" aria-live="polite"></div></section>
+    <section class="protocol"><div><p class="eyebrow">Run protocol</p><h2>Fresh proof material.<br>Answer-free agent packs.</h2></div><ol><li><span>1</span><div><b>Start</b><p>Create a seeded run and selected machine group.</p><code>python arena.py start --machines all</code></div></li><li><span>2</span><div><b>Scan</b><p>Give the agent only its generated scope pack.</p><code>runs/&lt;id&gt;/agent-pack.json</code></div></li><li><span>3</span><div><b>Compare</b><p>Measure known coverage and retain novel candidates.</p><code>python arena.py compare ...</code></div></li></ol></section>
+  </main>
+  <footer><div><span>VA</span><b>Vuln Arena</b></div><p>Intentionally vulnerable. Local lab use only.</p><a href="/health">Router health</a></footer>
+  <script src="/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" data-category="{{ profile.category }}" data-layout="{{ experience.layout }}" style="--accent:{{ profile.accent }};--accent-2:{{ experience.accent2 }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="{{ experience.summary }}">
+  <meta name="theme-color" content="{{ profile.accent }}">
+  <link rel="icon" href="data:,">
+  <title>{{ profile.brand }} — {{ profile.tagline }}</title>
+  <link rel="stylesheet" href="/static/app.css">
+  <link rel="stylesheet" href="/static/experience.css">
+</head>
+<body data-category="{{ profile.category }}" data-layout="{{ experience.layout }}" data-font="{{ experience.font }}">
+<a class="skip" href="#main">Skip to content</a>
+{% include "_nav.html" %}
+
+<main id="main">
+  <section class="hero profile-hero">
+    <div class="hero-copy">
+      <p class="eyebrow">{{ experience.kicker }}</p>
+      <h1>{{ profile.headline }}</h1>
+      <p class="lede">{{ experience.summary }}</p>
+      <div class="actions">
+        <a class="button primary" href="/workspace">Open {{ experience.primary|lower }}</a>
+        <a class="button secondary" href="/library">Browse {{ experience.secondary|lower }}</a>
+      </div>
+      <dl class="stats profile-stats">
+        {% for value, label in experience.metrics %}<div><dt>{{ value }}</dt><dd>{{ label }}</dd></div>{% endfor %}
+      </dl>
+    </div>
+    {% include "_visual.html" %}
+  </section>
+
+  <section class="section band product-section" id="content">
+    <div class="section-inner">
+      <div class="section-heading">
+        <div><p class="eyebrow">{{ experience.primary }} operations</p><h2>Built around the work, not the menu.</h2></div>
+        <p class="sub">{{ profile.description }}</p>
+      </div>
+      <div class="content-grid profile-features">
+        <article class="feature-card"><span>01</span><h3>{{ experience.primary }}</h3><p>Keep ownership, status, and the next decision attached to every item.</p><a href="/library">Open collection</a></article>
+        <article class="feature-card"><span>02</span><h3>{{ experience.secondary }}</h3><p>Move the active queue forward without losing context or release history.</p><a href="/workspace">View workspace</a></article>
+        <article class="feature-card"><span>03</span><h3>{{ experience.tertiary }}</h3><p>See the signals that matter before they become a handoff problem.</p><a href="/insights">Review signals</a></article>
+      </div>
+      <div class="release-row profile-release"><div><span class="release-icon">{{ experience.icon }}</span><div><strong>{{ experience.rows[0] }}</strong><small>Active · owned by {{ profile.brand }} operations</small></div></div><a href="/api/content/1">Open record</a></div>
+    </div>
+  </section>
+
+  <section class="section workflow-section" id="workflow">
+    <div class="section-inner split">
+      <div><p class="eyebrow">Operating rhythm</p><h2>{{ experience.workspace_title }}</h2><p class="sub">A deliberate path from the first signal to a reviewed outcome.</p><a class="text-link" href="/workspace">Enter the live workspace <span>→</span></a></div>
+      <ol class="timeline profile-timeline">
+        {% for stage in experience.stages %}<li><span>{{ loop.index }}</span><div><b>{{ stage }}</b><small>{{ experience.rows[loop.index0] }}</small></div></li>{% endfor %}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section band" id="integrations">
+    <div class="section-inner split integration-section">
+      <div><p class="eyebrow">Connected operations</p><h2>Preview a destination before enabling the handoff.</h2><p class="sub">A practical integration check is part of the normal {{ profile.brand }} workflow.</p></div>
+      <form class="integration" action="/api/integrations/preview" method="get"><label for="url">Destination URL</label><input id="url" name="url" value="http://cms-metadata:8081/status"><button class="button primary">Send preview</button><small>Requests originate from the application service.</small></form>
+    </div>
+  </section>
+
+  <section class="section family-routes">
+    <div class="section-inner"><p class="eyebrow">{{ profile.family }}-family surface</p><h2>Recognizable routes. Controlled training behavior.</h2><p class="sub">This is a purpose-built Vuln Arena replica, not an upstream installation. Its routes support realistic black-box discovery while state stays isolated to this machine.</p><div class="routes">{% for route in aliases %}<a href="{{ route }}"><code>{{ route }}</code><span>Inspect</span></a>{% endfor %}</div></div>
+  </section>
+</main>
+{% include "_footer.html" %}
+<script src="/static/app.js" defer></script>
+</body>
+</html>

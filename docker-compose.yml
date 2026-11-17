@@ -1,0 +1,478 @@
+name: vuln-arena
+x-cms-env: &cms-env
+  ARENA_RUN_SEED: "${ARENA_RUN_SEED:-local-training-seed}"
+  CMS_META_BASE: http://cms-metadata:8081
+x-runtime-limits: &runtime-limits
+  init: true
+  mem_limit: 384m
+  pids_limit: 256
+  cpus: 1.00
+x-cms-target: &cms-target
+  image: vuln-arena-cms-suite:local
+  build: ./apps/cms-suite
+  command: ["python", "app.py"]
+  restart: unless-stopped
+  depends_on:
+    - cms-metadata
+  networks: [cms-private]
+  read_only: true
+  security_opt:
+    - no-new-privileges:true
+  cap_drop: [ALL]
+  tmpfs:
+    - /tmp:mode=1777,size=32m
+  mem_limit: 128m
+  pids_limit: 128
+  cpus: 0.50
+  init: true
+services:
+  ledger:
+    <<: *runtime-limits
+    build: ./apps/ledger
+    container_name: arena-ledger
+    restart: unless-stopped
+    networks:
+      arena:
+        aliases: [ledger]
+    ports:
+      - "127.0.0.1:18001:80"
+    read_only: false
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+  bazaar:
+    <<: *runtime-limits
+    build: ./apps/bazaar
+    container_name: arena-bazaar
+    restart: unless-stopped
+    networks:
+      arena:
+        aliases: [bazaar]
+    ports:
+      - "127.0.0.1:18002:80"
+    read_only: false
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+  relay:
+    <<: *runtime-limits
+    build: ./apps/relay
+    container_name: arena-relay
+    restart: unless-stopped
+    networks:
+      arena:
+        aliases: [relay]
+    ports:
+      - "127.0.0.1:18003:80"
+    read_only: false
+    security_opt:
+      - no-new-privileges:true
+  mirror:
+    <<: *runtime-limits
+    build: ./apps/mirror
+    container_name: arena-mirror
+    restart: unless-stopped
+    networks:
+      arena:
+        aliases: [mirror]
+    ports:
+      - "127.0.0.1:18004:80"
+    read_only: false
+    security_opt:
+      - no-new-privileges:true
+  desk:
+    <<: *runtime-limits
+    build: ./apps/desk
+    container_name: arena-desk
+    restart: unless-stopped
+    networks:
+      arena:
+        aliases: [desk]
+    ports:
+      - "127.0.0.1:18005:80"
+    read_only: false
+    security_opt:
+      - no-new-privileges:true
+  ink:
+    <<: *runtime-limits
+    build: ./apps/ink
+    container_name: arena-ink
+    restart: unless-stopped
+    networks:
+      arena:
+        aliases: [ink]
+    ports:
+      - "127.0.0.1:18006:80"
+    read_only: false
+    security_opt:
+      - no-new-privileges:true
+  pulse:
+    <<: *runtime-limits
+    build: ./apps/pulse
+    container_name: arena-pulse
+    restart: unless-stopped
+    networks:
+      arena:
+        aliases: [pulse]
+    ports:
+      - "127.0.0.1:18007:80"
+    read_only: false
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+  vaultlite:
+    <<: *runtime-limits
+    build: ./apps/vaultlite
+    container_name: arena-vaultlite
+    restart: unless-stopped
+    networks:
+      arena:
+        aliases: [vaultlite]
+    ports:
+      - "127.0.0.1:18008:80"
+    read_only: false
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+  forge:
+    <<: *runtime-limits
+    build: ./apps/forge
+    container_name: arena-forge
+    restart: unless-stopped
+    networks:
+      arena:
+        aliases: [forge]
+    ports:
+      - "127.0.0.1:18009:80"
+    read_only: false
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+  canvas:
+    <<: *runtime-limits
+    build: ./apps/canvas
+    container_name: arena-canvas
+    restart: unless-stopped
+    networks:
+      arena:
+        aliases: [canvas]
+    ports:
+      - "127.0.0.1:18010:80"
+    read_only: false
+    security_opt:
+      - no-new-privileges:true
+  spool:
+    <<: *runtime-limits
+    build: ./apps/spool
+    container_name: arena-spool
+    restart: unless-stopped
+    networks:
+      arena:
+        aliases: [spool]
+    ports:
+      - "127.0.0.1:18011:80"
+    read_only: false
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+  atlas:
+    <<: *runtime-limits
+    build: ./apps/atlas
+    container_name: arena-atlas
+    restart: unless-stopped
+    networks:
+      arena:
+        aliases: [atlas]
+    ports:
+      - "127.0.0.1:18012:80"
+    read_only: false
+    security_opt:
+      - no-new-privileges:true
+  quorum:
+    <<: *runtime-limits
+    build:
+      context: .
+      dockerfile: apps/quorum/Dockerfile
+    restart: unless-stopped
+    networks:
+      arena:
+        aliases: [quorum]
+    ports:
+      - "127.0.0.1:18013:8080"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    tmpfs:
+      - /tmp
+  foundry:
+    <<: *runtime-limits
+    build:
+      context: .
+      dockerfile: apps/foundry/Dockerfile
+    restart: unless-stopped
+    environment:
+      REDIS_HOST: foundry-redis
+    depends_on:
+      - foundry-redis
+    networks:
+      arena:
+        aliases: [foundry]
+      foundry-private: {}
+    ports:
+      - "127.0.0.1:18014:8080"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    tmpfs:
+      - /tmp
+  foundry-redis:
+    image: redis:7.4-alpine
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    user: redis
+    restart: unless-stopped
+    networks: [foundry-private]
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    tmpfs:
+      - /data:mode=1777
+  cacheline:
+    <<: *runtime-limits
+    build:
+      context: .
+      dockerfile: apps/cacheline/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - cacheline-origin
+    networks:
+      arena:
+        aliases: [cacheline]
+      cacheline-private: {}
+    ports:
+      - "127.0.0.1:18015:8080"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    user: "101:101"
+    cap_drop: [ALL]
+    tmpfs:
+      - /tmp
+  cacheline-origin:
+    build: ./apps/cacheline/origin
+    restart: unless-stopped
+    networks: [cacheline-private]
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    tmpfs:
+      - /tmp
+  harbor:
+    <<: *runtime-limits
+    build:
+      context: .
+      dockerfile: apps/harbor/Dockerfile
+    restart: unless-stopped
+    networks:
+      arena:
+        aliases: [harbor]
+    ports:
+      - "127.0.0.1:18016:8080"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    tmpfs:
+      - /tmp
+  cms-gateway:
+    build:
+      context: ./apps/cms-suite
+      dockerfile: gateway.Dockerfile
+    restart: unless-stopped
+    networks:
+      arena:
+        aliases: [cms-gateway]
+      cms-private: {}
+    ports:
+      - "127.0.0.1:18017:18017"
+      - "127.0.0.1:18018:18018"
+      - "127.0.0.1:18019:18019"
+      - "127.0.0.1:18020:18020"
+      - "127.0.0.1:18021:18021"
+      - "127.0.0.1:18022:18022"
+      - "127.0.0.1:18023:18023"
+      - "127.0.0.1:18024:18024"
+      - "127.0.0.1:18025:18025"
+      - "127.0.0.1:18026:18026"
+      - "127.0.0.1:18027:18027"
+      - "127.0.0.1:18028:18028"
+      - "127.0.0.1:18029:18029"
+      - "127.0.0.1:18030:18030"
+      - "127.0.0.1:18031:18031"
+      - "127.0.0.1:18032:18032"
+      - "127.0.0.1:18033:18033"
+      - "127.0.0.1:18034:18034"
+      - "127.0.0.1:18035:18035"
+      - "127.0.0.1:18036:18036"
+      - "127.0.0.1:18037:18037"
+      - "127.0.0.1:18038:18038"
+      - "127.0.0.1:18039:18039"
+      - "127.0.0.1:18040:18040"
+      - "127.0.0.1:18041:18041"
+      - "127.0.0.1:18042:18042"
+      - "127.0.0.1:18043:18043"
+      - "127.0.0.1:18044:18044"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    tmpfs:
+      - /tmp:mode=1777,size=32m
+    mem_limit: 96m
+    pids_limit: 96
+    init: true
+  arena-router:
+    build:
+      context: .
+      dockerfile: apps/arena-router/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - cms-gateway
+    networks: [arena]
+    ports:
+      - "127.0.0.1:18080:8080"
+    read_only: true
+    user: "101:101"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    tmpfs:
+      - /tmp:mode=1777,size=16m
+      - /var/cache/nginx/arena:mode=0755,size=16m
+    mem_limit: 96m
+    pids_limit: 96
+    cpus: 0.50
+    init: true
+  cms-metadata:
+    image: vuln-arena-cms-suite:local
+    build: ./apps/cms-suite
+    command: ["python", "metadata.py"]
+    restart: unless-stopped
+    environment:
+      ARENA_RUN_SEED: "${ARENA_RUN_SEED:-local-training-seed}"
+    networks: [cms-private]
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    tmpfs:
+      - /tmp:mode=1777,size=16m
+    mem_limit: 96m
+    pids_limit: 96
+    init: true
+  cms-wordpress:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: wordpress}
+  cms-shopify:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: shopify}
+  cms-wix:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: wix}
+  cms-squarespace:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: squarespace}
+  cms-joomla:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: joomla}
+  cms-tilda:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: tilda}
+  cms-webflow:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: webflow}
+  cms-duda:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: duda}
+  cms-godaddy:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: godaddy}
+  cms-drupal:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: drupal}
+  cms-adobe:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: adobe}
+  cms-google-sites:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: google-sites}
+  cms-lovable:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: lovable}
+  cms-prestashop:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: prestashop}
+  cms-bitrix:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: bitrix}
+  cms-weebly:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: weebly}
+  cms-typo3:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: typo3}
+  cms-jimdo:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: jimdo}
+  cms-opencart:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: opencart}
+  cms-tiendanube:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: tiendanube}
+  cms-ghost:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: ghost}
+  cms-moodle:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: moodle}
+  cms-mediawiki:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: mediawiki}
+  cms-strapi:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: strapi}
+  platform-laravel:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: laravel}
+  platform-django:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: django}
+  platform-nextjs:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: nextjs}
+  platform-spring:
+    <<: *cms-target
+    environment: {<<: *cms-env, CMS_PROFILE: spring}
+networks:
+  arena:
+    driver: bridge
+    internal: false
+  foundry-private:
+    driver: bridge
+    internal: true
+  cacheline-private:
+    driver: bridge
+    internal: true
+  cms-private:
+    driver: bridge
+    internal: true

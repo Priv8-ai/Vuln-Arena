@@ -1,0 +1,1 @@
+{"version":3,"file":"app.js","sources":["webpack:///./src/config.js"],"sourcesContent":["export const ADMIN_HINT='price can be posted by client; SSRF at /hook; meta at http://bazaar/internal/meta';\nexport const FLAG='ARENA{bazaar_sourcemap}';"],"mappings":"AAAA"}

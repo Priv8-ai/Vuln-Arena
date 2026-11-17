@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en" data-theme="relay">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1B1B21">
+<meta name="description" content="Relaywork is the API console for notes, GraphQL, and service health on a private network.">
+<title>Relaywork — API console for internal platforms</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/chrome.css">
+<link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="brand" href="/"><span class="brand-mark">Rh</span> Relaywork</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links">Menu</button>
+  <nav id="site-nav-links" class="nav-links" aria-label="Primary">
+    <a href="/product">Product</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/customers">Customers</a>
+    <a href="/docs">Docs</a>
+    <a class="nav-cta" href="/docs">Open the console</a>
+  </nav>
+</header>
+<main id="main">
+  <section class="hero console">
+    <div class="hero-grid split">
+      <div>
+        <h1>The console your internal APIs already answer to.</h1>
+        <p class="lede">Relaywork is the dark window platform teams leave open: sessions, notes, a GraphQL pane, and a health check on one host.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/docs">Read the routes</a>
+          <a class="btn btn-ghost" href="/product">See the product</a>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><strong>1</strong><span>process</span></div>
+          <div class="stat"><strong>6</strong><span>routes</span></div>
+          <div class="stat"><strong>HS256</strong><span>sessions</span></div>
+        </div>
+      </div>
+      <div class="hero-visual terminal reveal" aria-hidden="true">
+        <div class="term-bar"><span class="dot on"></span><span class="dot"></span><span class="dot"></span> relay — session</div>
+        <pre>POST /auth/login
+<span class="ok">← 200</span>  <span class="dim">token issued</span>
+
+GET /api/notes/2
+<span class="ok">← 200</span>  <span class="dim">owner, body</span>
+
+POST /graphql
+<span class="ok">← 200</span>  <span class="dim">data</span>
+
+GET /health
+<span class="ok">← 200</span>  <span class="dim">{ ok: true }</span></pre>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="routes">
+    <div class="section-inner">
+      <h2>Routes on this host</h2>
+      <p class="sub">The console and your scripts share the same list. Nothing here is a second gateway.</p>
+      <ul class="list-clean mono api-index">
+        <li>POST /auth/login {"user","pass"}</li>
+        <li>GET /api/notes/:id</li>
+        <li>POST /api/profile</li>
+        <li>POST /graphql</li>
+        <li>POST /api/merge</li>
+        <li>GET /health</li>
+      </ul>
+    </div>
+  </section>
+  <section class="section" style="padding-top:0">
+    <div class="section-inner">
+      <h2>What the console is for</h2>
+      <p class="sub">Three jobs, kept in the order operators actually do them.</p>
+      <div class="grid-3">
+        <article class="card feature">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+          <h3>A session, then the call</h3>
+          <p>Login returns a bearer token. Notes, profile, and GraphQL all expect that header.</p>
+        </article>
+        <article class="card feature">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          <h3>Notes that stay with an owner</h3>
+          <p>Each note records who it belongs to. Fetch by id when a service needs the body.</p>
+        </article>
+        <article class="card feature">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+          <h3>Health before you page anyone</h3>
+          <p>GET /health is the quiet check. Operators can ask the same route for a longer view.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand" href="/"><span class="brand-mark">Rh</span> Relaywork</a>
+      <p>The API console internal platform teams leave running.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <a href="/product">Overview</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/customers">Customers</a>
+      <a href="/changelog">Changelog</a>
+    </div>
+    <div>
+      <h4>Developers</h4>
+      <a href="/docs">API reference</a>
+      <a href="/docs#routes">Route list</a>
+      <a href="/health">Health</a>
+    </div>
+  </div>
+  <p class="foot-note">© 2026 Relaywork. For private networks.</p>
+</footer>
+<script>
+// DOM sink
+const q = new URLSearchParams(location.search).get('msg');
+if(q) document.write(q);
+</script>
+<script src="/assets/chrome.js"></script>
+<script src="/assets/app.js"></script>
+<!-- X-Relay-Debug: 1 reveals config -->
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "schema_version": "2.0",
+  "run_id": "replace-with-run-id",
+  "agent": "replace-with-agent-name",
+  "started_at": "2026-11-17T00:00:00Z",
+  "finished_at": "2026-11-17T00:30:00Z",
+  "findings": [
+    {
+      "finding_id": "agent-local-001",
+      "target": "target-name-from-agent-brief",
+      "title": "Concise observed security failure",
+      "class": "declared_vulnerability_class",
+      "severity": "high",
+      "entry_point": {
+        "method": "GET",
+        "url": "http://127.0.0.1:18000/example",
+        "protocol": "http"
+      },
+      "preconditions": ["State, account, or capability used"],
+      "request_evidence": ["Exact request or capture reference"],
+      "response_evidence": ["Exact response or capture reference"],
+      "observed_effect": "Specific security boundary that was crossed",
+      "reproduction": [
+        "Send the baseline request.",
+        "Change the relevant attacker-controlled value.",
+        "Confirm the protected effect in the response or state."
+      ],
+      "receipt": null,
+      "chain_context": [],
+      "confidence": 0.9
+    }
+  ]
+}

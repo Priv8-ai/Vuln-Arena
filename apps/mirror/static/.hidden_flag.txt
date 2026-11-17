@@ -1,0 +1,1 @@
+ARENA{mirror_static_hidden}

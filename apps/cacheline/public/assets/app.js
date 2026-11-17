@@ -1,0 +1,1 @@
+fetch('/api/metrics').then(r=>r.json()).then(x=>{document.querySelector('#hit-rate').textContent=x.hitRate+'%';document.querySelector('#p95').textContent=x.p95+' ms';document.querySelector('#requests').textContent=Number(x.requests).toLocaleString()}).catch(()=>{});

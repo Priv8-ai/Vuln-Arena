@@ -1,0 +1,2233 @@
+{
+  "lab": "vuln-arena",
+  "version": "1.1.0",
+  "catalog_status": "legacy objectives retained during v2 verifier migration",
+  "mode": "blackbox",
+  "bind": "127.0.0.1",
+  "targets": [
+    {
+      "name": "ledger",
+      "stack": "PHP/Apache/SQLite",
+      "base_url": "http://127.0.0.1:18001"
+    },
+    {
+      "name": "bazaar",
+      "stack": "Python/Flask",
+      "base_url": "http://127.0.0.1:18002"
+    },
+    {
+      "name": "relay",
+      "stack": "Node/Express",
+      "base_url": "http://127.0.0.1:18003"
+    },
+    {
+      "name": "mirror",
+      "stack": "Go",
+      "base_url": "http://127.0.0.1:18004"
+    },
+    {
+      "name": "desk",
+      "stack": "Java",
+      "base_url": "http://127.0.0.1:18005"
+    },
+    {
+      "name": "ink",
+      "stack": "Ruby/Sinatra",
+      "base_url": "http://127.0.0.1:18006"
+    },
+    {
+      "name": "pulse",
+      "stack": "Node/WS",
+      "base_url": "http://127.0.0.1:18007"
+    },
+    {
+      "name": "vaultlite",
+      "stack": "PHP",
+      "base_url": "http://127.0.0.1:18008"
+    },
+    {
+      "name": "forge",
+      "stack": "Python/FastAPI",
+      "base_url": "http://127.0.0.1:18009"
+    },
+    {
+      "name": "canvas",
+      "stack": "Node/EJS",
+      "base_url": "http://127.0.0.1:18010"
+    },
+    {
+      "name": "spool",
+      "stack": "Go",
+      "base_url": "http://127.0.0.1:18011"
+    },
+    {
+      "name": "atlas",
+      "stack": "Nginx/static",
+      "base_url": "http://127.0.0.1:18012"
+    },
+    {
+      "name": "quorum",
+      "stack": ".NET/ASP.NET Core",
+      "base_url": "http://127.0.0.1:18013"
+    },
+    {
+      "name": "foundry",
+      "stack": "Python/Django/Redis",
+      "base_url": "http://127.0.0.1:18014"
+    },
+    {
+      "name": "cacheline",
+      "stack": "Nginx/Node multi-tier cache",
+      "base_url": "http://127.0.0.1:18015"
+    },
+    {
+      "name": "harbor",
+      "stack": "Rust/Axum",
+      "base_url": "http://127.0.0.1:18016"
+    }
+  ],
+  "challenge_count": 118,
+  "challenges": [
+    {
+      "id": "L-01",
+      "app": "ledger",
+      "title": "SQLi login bypass",
+      "type": "sql_injection",
+      "severity": "critical",
+      "endpoint": "/login.php",
+      "method": "POST",
+      "description": "Login concatenates email/password into SQL.",
+      "evidence_hint": "auth as admin via OR 1=1",
+      "flag": null,
+      "chain_id": "chain-ledger-admin",
+      "chain_step": 1,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "L-02",
+      "app": "ledger",
+      "title": "Invoice IDOR flag",
+      "type": "idor",
+      "severity": "high",
+      "endpoint": "/invoices.php",
+      "method": "GET",
+      "description": "user_id parameter not authorized.",
+      "evidence_hint": "user_id=1 returns secret_flag",
+      "flag": "ARENA{ledger_invoice_idor}",
+      "chain_id": "chain-ledger-admin",
+      "chain_step": 2,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "L-03",
+      "app": "ledger",
+      "title": "Reflected XSS search",
+      "type": "xss_reflected",
+      "severity": "medium",
+      "endpoint": "/search.php",
+      "method": "GET",
+      "description": "q echoed raw",
+      "evidence_hint": "script alert in q",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "L-04",
+      "app": "ledger",
+      "title": "SQLi in search",
+      "type": "sql_injection",
+      "severity": "high",
+      "endpoint": "/search.php",
+      "method": "GET",
+      "description": "LIKE concatenation",
+      "evidence_hint": "SQL error or union",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "L-05",
+      "app": "ledger",
+      "title": "Profile SQLi / token leak",
+      "type": "sql_injection",
+      "severity": "high",
+      "endpoint": "/profile.php",
+      "method": "GET",
+      "description": "id injected; reset_token exposed",
+      "evidence_hint": "dump reset_token",
+      "flag": null,
+      "chain_id": "chain-ledger-reset",
+      "chain_step": 1,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "L-06",
+      "app": "ledger",
+      "title": "JS config leak debug key",
+      "type": "information_disclosure",
+      "severity": "medium",
+      "endpoint": "/static/app.js",
+      "method": "GET",
+      "description": "debugPanelKey in JS",
+      "evidence_hint": "ledger-debug-9c2",
+      "flag": null,
+      "chain_id": "chain-ledger-debug",
+      "chain_step": 1,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "L-07",
+      "app": "ledger",
+      "title": "Debug panel flag",
+      "type": "authz_bypass",
+      "severity": "high",
+      "endpoint": "/debug.php",
+      "method": "GET",
+      "description": "key from JS unlocks debug",
+      "evidence_hint": "ARENA{ledger_debug_panel}",
+      "flag": "ARENA{ledger_debug_panel}",
+      "chain_id": "chain-ledger-debug",
+      "chain_step": 2,
+      "tags": [
+        "advanced"
+      ]
+    },
+    {
+      "id": "L-08",
+      "app": "ledger",
+      "title": "env.bak leak",
+      "type": "information_disclosure",
+      "severity": "high",
+      "endpoint": "/data/.env.bak",
+      "method": "GET",
+      "description": "backup env exposed",
+      "evidence_hint": "ARENA{ledger_env_bak_leak}",
+      "flag": "ARENA{ledger_env_bak_leak}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "L-09",
+      "app": "ledger",
+      "title": "Unrestricted upload",
+      "type": "file_upload",
+      "severity": "critical",
+      "endpoint": "/upload.php",
+      "method": "POST",
+      "description": "php upload retained under /uploads",
+      "evidence_hint": "fetch uploaded php",
+      "flag": null,
+      "chain_id": "chain-ledger-upload",
+      "chain_step": 1,
+      "tags": [
+        "common",
+        "rce"
+      ]
+    },
+    {
+      "id": "L-10",
+      "app": "ledger",
+      "title": "Command injection ping",
+      "type": "command_injection",
+      "severity": "critical",
+      "endpoint": "/ping.php",
+      "method": "GET",
+      "description": "host passed to shell",
+      "evidence_hint": "touch /tmp/arena_ledger_rce; get ARENA{ledger_cmdi_rce}",
+      "flag": "ARENA{ledger_cmdi_rce}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "rce",
+        "advanced"
+      ]
+    },
+    {
+      "id": "L-11",
+      "app": "ledger",
+      "title": "LFI pages",
+      "type": "path_traversal",
+      "severity": "high",
+      "endpoint": "/include.php",
+      "method": "GET",
+      "description": "page include",
+      "evidence_hint": "page=secret.txt",
+      "flag": "ARENA{ledger_lfi_secret}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "L-12",
+      "app": "ledger",
+      "title": "Reset token login chain",
+      "type": "auth_bypass",
+      "severity": "critical",
+      "endpoint": "/reset.php",
+      "method": "POST",
+      "description": "Predictable token from JS hint + profile",
+      "evidence_hint": "reset-alice or craft admin",
+      "flag": "ARENA{ledger_reset_chain_admin}",
+      "chain_id": "chain-ledger-reset",
+      "chain_step": 2,
+      "tags": [
+        "chain"
+      ]
+    },
+    {
+      "id": "L-13",
+      "app": "ledger",
+      "title": "Admin panel",
+      "type": "authz_bypass",
+      "severity": "high",
+      "endpoint": "/admin.php",
+      "method": "GET",
+      "description": "reachable as admin session",
+      "evidence_hint": "ARENA{ledger_admin_panel}",
+      "flag": "ARENA{ledger_admin_panel}",
+      "chain_id": "chain-ledger-admin",
+      "chain_step": 3,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "B-01",
+      "app": "bazaar",
+      "title": "Login SQLi",
+      "type": "sql_injection",
+      "severity": "critical",
+      "endpoint": "/login",
+      "method": "POST",
+      "description": "string concat login",
+      "evidence_hint": "bypass auth",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "B-02",
+      "app": "bazaar",
+      "title": "Item description flag",
+      "type": "information_disclosure",
+      "severity": "low",
+      "endpoint": "/item/2",
+      "method": "GET",
+      "description": "flag in product desc",
+      "evidence_hint": "ARENA{bazaar_item_desc}",
+      "flag": "ARENA{bazaar_item_desc}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "B-03",
+      "app": "bazaar",
+      "title": "Stored XSS review",
+      "type": "xss_stored",
+      "severity": "high",
+      "endpoint": "/review/<id>",
+      "method": "POST",
+      "description": "review rendered safe filter off",
+      "evidence_hint": "script in review",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "B-04",
+      "app": "bazaar",
+      "title": "Negative total logic",
+      "type": "business_logic",
+      "severity": "high",
+      "endpoint": "/buy",
+      "method": "POST",
+      "description": "negative qty yields flag",
+      "evidence_hint": "ARENA{bazaar_negative_total}",
+      "flag": "ARENA{bazaar_negative_total}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "advanced"
+      ]
+    },
+    {
+      "id": "B-05",
+      "app": "bazaar",
+      "title": "Price tamper",
+      "type": "business_logic",
+      "severity": "high",
+      "endpoint": "/buy",
+      "method": "POST",
+      "description": "client price trusted",
+      "evidence_hint": "ARENA{bazaar_price_tamper}",
+      "flag": "ARENA{bazaar_price_tamper}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "advanced"
+      ]
+    },
+    {
+      "id": "B-06",
+      "app": "bazaar",
+      "title": "SSRF to metadata",
+      "type": "ssrf",
+      "severity": "critical",
+      "endpoint": "/hook",
+      "method": "GET",
+      "description": "server-side fetch",
+      "evidence_hint": "hit /internal/meta",
+      "flag": "ARENA{bazaar_metadata_ssrf}",
+      "chain_id": "chain-bazaar-ssrf",
+      "chain_step": 1,
+      "tags": [
+        "advanced",
+        "chain"
+      ]
+    },
+    {
+      "id": "B-07",
+      "app": "bazaar",
+      "title": "SSRF admin token chain",
+      "type": "ssrf",
+      "severity": "critical",
+      "endpoint": "/internal/admin",
+      "method": "GET",
+      "description": "token from meta",
+      "evidence_hint": "ARENA{bazaar_ssrf_chain_admin}",
+      "flag": "ARENA{bazaar_ssrf_chain_admin}",
+      "chain_id": "chain-bazaar-ssrf",
+      "chain_step": 2,
+      "tags": [
+        "chain"
+      ]
+    },
+    {
+      "id": "B-08",
+      "app": "bazaar",
+      "title": "SSTI name",
+      "type": "ssti",
+      "severity": "critical",
+      "endpoint": "/render",
+      "method": "GET",
+      "description": "Jinja string concat",
+      "evidence_hint": "{{7*7}} or config",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "advanced",
+        "rce"
+      ]
+    },
+    {
+      "id": "B-09",
+      "app": "bazaar",
+      "title": "Path traversal fetch-file",
+      "type": "path_traversal",
+      "severity": "high",
+      "endpoint": "/fetch-file",
+      "method": "GET",
+      "description": "path join",
+      "evidence_hint": "../ or secret.txt",
+      "flag": "ARENA{bazaar_local_file}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "B-10",
+      "app": "bazaar",
+      "title": "Content-Type confusion",
+      "type": "response_manipulation",
+      "severity": "medium",
+      "endpoint": "/export",
+      "method": "GET",
+      "description": "ctype query reflected",
+      "evidence_hint": "ARENA{bazaar_ctype_confusion}",
+      "flag": "ARENA{bazaar_ctype_confusion}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "creative"
+      ]
+    },
+    {
+      "id": "B-11",
+      "app": "bazaar",
+      "title": "Open redirect",
+      "type": "open_redirect",
+      "severity": "medium",
+      "endpoint": "/redirect",
+      "method": "GET",
+      "description": "next unvalidated",
+      "evidence_hint": "next=http://evil",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "B-12",
+      "app": "bazaar",
+      "title": "Command injection ops ping",
+      "type": "command_injection",
+      "severity": "critical",
+      "endpoint": "/ops/ping",
+      "method": "GET",
+      "description": "shell ping",
+      "evidence_hint": "touch /tmp/bazaar_rce",
+      "flag": "ARENA{bazaar_cmdi}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "rce"
+      ]
+    },
+    {
+      "id": "B-13",
+      "app": "bazaar",
+      "title": "Source map leak",
+      "type": "information_disclosure",
+      "severity": "medium",
+      "endpoint": "/static/app.js.map",
+      "method": "GET",
+      "description": "sourcesContent flag",
+      "evidence_hint": "ARENA{bazaar_sourcemap}",
+      "flag": "ARENA{bazaar_sourcemap}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "R-01",
+      "app": "relay",
+      "title": "JWT none algorithm",
+      "type": "jwt_verification_bypass",
+      "severity": "critical",
+      "endpoint": "/api/profile",
+      "method": "POST",
+      "description": "alg none accepted",
+      "evidence_hint": "ARENA{relay_jwt_none}",
+      "flag": "ARENA{relay_jwt_none}",
+      "chain_id": "chain-relay-jwt",
+      "chain_step": 1,
+      "tags": [
+        "advanced"
+      ]
+    },
+    {
+      "id": "R-02",
+      "app": "relay",
+      "title": "Notes IDOR",
+      "type": "idor",
+      "severity": "high",
+      "endpoint": "/api/notes/1",
+      "method": "GET",
+      "description": "no owner check",
+      "evidence_hint": "ARENA{relay_note_idor}",
+      "flag": "ARENA{relay_note_idor}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "R-03",
+      "app": "relay",
+      "title": "Mass assignment role",
+      "type": "mass_assignment",
+      "severity": "high",
+      "endpoint": "/api/profile",
+      "method": "POST",
+      "description": "role from body",
+      "evidence_hint": "ARENA{relay_mass_assignment}",
+      "flag": "ARENA{relay_mass_assignment}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "advanced"
+      ]
+    },
+    {
+      "id": "R-04",
+      "app": "relay",
+      "title": "Prototype pollution merge",
+      "type": "prototype_pollution",
+      "severity": "critical",
+      "endpoint": "/api/merge",
+      "method": "POST",
+      "description": "__proto__ polluted",
+      "evidence_hint": "ARENA{relay_proto_pollution}",
+      "flag": "ARENA{relay_proto_pollution}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "advanced",
+        "rce"
+      ]
+    },
+    {
+      "id": "R-05",
+      "app": "relay",
+      "title": "GraphQL secret field",
+      "type": "authz_bypass",
+      "severity": "high",
+      "endpoint": "/graphql",
+      "method": "POST",
+      "description": "secretFlag without authz",
+      "evidence_hint": "ARENA{relay_graphql_authz}",
+      "flag": "ARENA{relay_graphql_authz}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "advanced"
+      ]
+    },
+    {
+      "id": "R-06",
+      "app": "relay",
+      "title": "GraphQL introspection",
+      "type": "information_disclosure",
+      "severity": "medium",
+      "endpoint": "/graphql",
+      "method": "POST",
+      "description": "__schema exposed",
+      "evidence_hint": "SecretMutation visible",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "R-07",
+      "app": "relay",
+      "title": "Duplicate JSON role header",
+      "type": "parser_differential",
+      "severity": "medium",
+      "endpoint": "/api/batch",
+      "method": "POST",
+      "description": "X-Raw-Json duplicate role keys",
+      "evidence_hint": "ARENA{relay_json_duplicate}",
+      "flag": "ARENA{relay_json_duplicate}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "creative"
+      ]
+    },
+    {
+      "id": "R-08",
+      "app": "relay",
+      "title": "Debug header disclosure",
+      "type": "information_disclosure",
+      "severity": "medium",
+      "endpoint": "/health",
+      "method": "GET",
+      "description": "X-Relay-Debug: 1",
+      "evidence_hint": "ARENA{relay_debug_header}",
+      "flag": "ARENA{relay_debug_header}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "R-09",
+      "app": "relay",
+      "title": "DOM XSS msg param",
+      "type": "xss_dom",
+      "severity": "medium",
+      "endpoint": "/",
+      "method": "GET",
+      "description": "document.write msg",
+      "evidence_hint": "script via msg=",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "R-10",
+      "app": "relay",
+      "title": "Login works for baseline",
+      "type": "info",
+      "severity": "info",
+      "endpoint": "/auth/login",
+      "method": "POST",
+      "description": "alice/alice valid",
+      "evidence_hint": "token issued",
+      "flag": null,
+      "chain_id": "chain-relay-jwt",
+      "chain_step": 0,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "M-01",
+      "app": "mirror",
+      "title": "SSRF proxy",
+      "type": "ssrf",
+      "severity": "critical",
+      "endpoint": "/proxy",
+      "method": "GET",
+      "description": "url fetched server-side",
+      "evidence_hint": "fetch internal flag URL",
+      "flag": null,
+      "chain_id": "chain-mirror-ssrf",
+      "chain_step": 1,
+      "tags": [
+        "advanced"
+      ]
+    },
+    {
+      "id": "M-02",
+      "app": "mirror",
+      "title": "Internal flag via SSRF",
+      "type": "ssrf",
+      "severity": "critical",
+      "endpoint": "/_internal/flag",
+      "method": "GET",
+      "description": "reachable via proxy to self",
+      "evidence_hint": "ARENA{mirror_internal_flag}",
+      "flag": "ARENA{mirror_internal_flag}",
+      "chain_id": "chain-mirror-ssrf",
+      "chain_step": 2,
+      "tags": [
+        "chain"
+      ]
+    },
+    {
+      "id": "M-03",
+      "app": "mirror",
+      "title": "X-Original-URL bypass",
+      "type": "authz_bypass",
+      "severity": "high",
+      "endpoint": "/",
+      "method": "GET",
+      "description": "middleware rewrites path from header",
+      "evidence_hint": "X-Original-URL: /_internal/flag",
+      "flag": "ARENA{mirror_internal_flag}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "creative",
+        "advanced"
+      ]
+    },
+    {
+      "id": "M-04",
+      "app": "mirror",
+      "title": "Header injection legacy redirect",
+      "type": "response_manipulation",
+      "severity": "high",
+      "endpoint": "/legacy",
+      "method": "GET",
+      "description": "CRLF in next",
+      "evidence_hint": "ARENA{mirror_header_injection}",
+      "flag": "ARENA{mirror_header_injection}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "creative"
+      ]
+    },
+    {
+      "id": "M-05",
+      "app": "mirror",
+      "title": "Cache poison simulation",
+      "type": "cache_poisoning",
+      "severity": "medium",
+      "endpoint": "/legacy",
+      "method": "GET",
+      "description": "X-Cache-Poison reflected cached",
+      "evidence_hint": "ARENA{mirror_cache_poison_sim}",
+      "flag": "ARENA{mirror_cache_poison_sim}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "creative"
+      ]
+    },
+    {
+      "id": "M-06",
+      "app": "mirror",
+      "title": "Hidden static flag file",
+      "type": "information_disclosure",
+      "severity": "low",
+      "endpoint": "/static/.hidden_flag.txt",
+      "method": "GET",
+      "description": "dotfile served",
+      "evidence_hint": "ARENA{mirror_static_hidden}",
+      "flag": "ARENA{mirror_static_hidden}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "D-01",
+      "app": "desk",
+      "title": "Ticket IDOR",
+      "type": "idor",
+      "severity": "high",
+      "endpoint": "/ticket",
+      "method": "GET",
+      "description": "id not authorized",
+      "evidence_hint": "ARENA{desk_ticket_idor}",
+      "flag": "ARENA{desk_ticket_idor}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "D-02",
+      "app": "desk",
+      "title": "Insecure deserialize CMD",
+      "type": "insecure_deserialization",
+      "severity": "critical",
+      "endpoint": "/serialize",
+      "method": "POST",
+      "description": "base64 CMD: shell",
+      "evidence_hint": "ARENA{desk_insecure_deserialize}",
+      "flag": "ARENA{desk_insecure_deserialize}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "rce",
+        "advanced"
+      ]
+    },
+    {
+      "id": "D-03",
+      "app": "desk",
+      "title": "Path traversal read",
+      "type": "path_traversal",
+      "severity": "high",
+      "endpoint": "/read",
+      "method": "GET",
+      "description": "path under /app/data",
+      "evidence_hint": "ARENA{desk_file_read}",
+      "flag": "ARENA{desk_file_read}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "D-04",
+      "app": "desk",
+      "title": "Reflected XSS search",
+      "type": "xss_reflected",
+      "severity": "medium",
+      "endpoint": "/search",
+      "method": "GET",
+      "description": "q echoed",
+      "evidence_hint": "script in q",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "D-05",
+      "app": "desk",
+      "title": "Admin cookie trust",
+      "type": "authz_bypass",
+      "severity": "high",
+      "endpoint": "/admin",
+      "method": "GET",
+      "description": "SID=admin-session forged",
+      "evidence_hint": "ARENA{desk_admin_cookie}",
+      "flag": "ARENA{desk_admin_cookie}",
+      "chain_id": "chain-desk-cookie",
+      "chain_step": 1,
+      "tags": [
+        "common",
+        "chain"
+      ]
+    },
+    {
+      "id": "D-06",
+      "app": "desk",
+      "title": "Weak login sets role cookie",
+      "type": "broken_auth",
+      "severity": "medium",
+      "endpoint": "/login",
+      "method": "POST",
+      "description": "admin body sets admin session",
+      "evidence_hint": "Set-Cookie admin-session",
+      "flag": null,
+      "chain_id": "chain-desk-cookie",
+      "chain_step": 0,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "I-01",
+      "app": "ink",
+      "title": "Post IDOR flag",
+      "type": "idor",
+      "severity": "medium",
+      "endpoint": "/posts/2",
+      "method": "GET",
+      "description": "unlisted post",
+      "evidence_hint": "ARENA{ink_post_idor}",
+      "flag": "ARENA{ink_post_idor}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "I-02",
+      "app": "ink",
+      "title": "Mass assignment role",
+      "type": "mass_assignment",
+      "severity": "high",
+      "endpoint": "/profile",
+      "method": "POST",
+      "description": "JSON role admin",
+      "evidence_hint": "ARENA{ink_mass_assignment}",
+      "flag": "ARENA{ink_mass_assignment}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "advanced"
+      ]
+    },
+    {
+      "id": "I-03",
+      "app": "ink",
+      "title": "Path traversal export",
+      "type": "path_traversal",
+      "severity": "high",
+      "endpoint": "/export",
+      "method": "GET",
+      "description": "file=../ or .draft.md",
+      "evidence_hint": "ARENA{ink_draft_file}",
+      "flag": "ARENA{ink_draft_file}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "I-04",
+      "app": "ink",
+      "title": "Open redirect page",
+      "type": "open_redirect",
+      "severity": "medium",
+      "endpoint": "/page",
+      "method": "GET",
+      "description": "url param redirect",
+      "evidence_hint": "url=http://evil",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "I-05",
+      "app": "ink",
+      "title": "Reflected XSS msg",
+      "type": "xss_reflected",
+      "severity": "medium",
+      "endpoint": "/page",
+      "method": "GET",
+      "description": "msg raw HTML",
+      "evidence_hint": "script in msg",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "I-06",
+      "app": "ink",
+      "title": "Admin cookie role",
+      "type": "authz_bypass",
+      "severity": "high",
+      "endpoint": "/admin",
+      "method": "GET",
+      "description": "role=admin cookie",
+      "evidence_hint": "ARENA{ink_admin}",
+      "flag": "ARENA{ink_admin}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "I-07",
+      "app": "ink",
+      "title": "Unrestricted upload",
+      "type": "file_upload",
+      "severity": "high",
+      "endpoint": "/upload",
+      "method": "POST",
+      "description": "any file to /uploads",
+      "evidence_hint": "retrieve uploaded",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "P-01",
+      "app": "pulse",
+      "title": "WS stored/broadcast XSS",
+      "type": "xss_stored",
+      "severity": "high",
+      "endpoint": "/ws",
+      "method": "WS",
+      "description": "messages innerHTML",
+      "evidence_hint": "script via websocket",
+      "flag": null,
+      "chain_id": "chain-pulse-xss",
+      "chain_step": 1,
+      "tags": [
+        "common",
+        "chain"
+      ]
+    },
+    {
+      "id": "P-02",
+      "app": "pulse",
+      "title": "Report stored XSS to mod",
+      "type": "xss_stored",
+      "severity": "high",
+      "endpoint": "/report",
+      "method": "POST",
+      "description": "mod renders HTML",
+      "evidence_hint": "steal MOD cookie",
+      "flag": null,
+      "chain_id": "chain-pulse-xss",
+      "chain_step": 2,
+      "tags": [
+        "chain"
+      ]
+    },
+    {
+      "id": "P-03",
+      "app": "pulse",
+      "title": "Mod cookie takeover flag",
+      "type": "authz_bypass",
+      "severity": "critical",
+      "endpoint": "/flag",
+      "method": "GET",
+      "description": "cookie from mod page",
+      "evidence_hint": "ARENA{pulse_mod_takeover}",
+      "flag": "ARENA{pulse_mod_takeover}",
+      "chain_id": "chain-pulse-xss",
+      "chain_step": 3,
+      "tags": [
+        "chain"
+      ]
+    },
+    {
+      "id": "P-04",
+      "app": "pulse",
+      "title": "Open redirect attach",
+      "type": "open_redirect",
+      "severity": "low",
+      "endpoint": "/attach",
+      "method": "GET",
+      "description": "url redirect",
+      "evidence_hint": "external url",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "P-05",
+      "app": "pulse",
+      "title": "Content-Type echo HTML",
+      "type": "response_manipulation",
+      "severity": "medium",
+      "endpoint": "/api/echo",
+      "method": "GET",
+      "description": "ct=text/html",
+      "evidence_hint": "ARENA{pulse_ctype_html}",
+      "flag": "ARENA{pulse_ctype_html}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "creative"
+      ]
+    },
+    {
+      "id": "P-06",
+      "app": "pulse",
+      "title": "WS command trigger",
+      "type": "command_injection",
+      "severity": "critical",
+      "endpoint": "/ws",
+      "method": "WS",
+      "description": "ARENA_PING_RCE triggers exec",
+      "evidence_hint": "ARENA{pulse_ws_cmd_trigger}",
+      "flag": "ARENA{pulse_ws_cmd_trigger}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "rce",
+        "creative"
+      ]
+    },
+    {
+      "id": "P-07",
+      "app": "pulse",
+      "title": "Mod cookie value itself",
+      "type": "information_disclosure",
+      "severity": "medium",
+      "endpoint": "/mod",
+      "method": "GET",
+      "description": "Set-Cookie contains flag token",
+      "evidence_hint": "ARENA{pulse_xss_chain_cookie}",
+      "flag": "ARENA{pulse_xss_chain_cookie}",
+      "chain_id": "chain-pulse-xss",
+      "chain_step": 2,
+      "tags": [
+        "chain"
+      ]
+    },
+    {
+      "id": "V-01",
+      "app": "vaultlite",
+      "title": "JS hmac secret leak",
+      "type": "information_disclosure",
+      "severity": "medium",
+      "endpoint": "/assets/vault.js",
+      "method": "GET",
+      "description": "hmacSecret in JS",
+      "evidence_hint": "vault-hmac-dev",
+      "flag": null,
+      "chain_id": "chain-vault-sign",
+      "chain_step": 1,
+      "tags": [
+        "leak",
+        "chain"
+      ]
+    },
+    {
+      "id": "V-02",
+      "app": "vaultlite",
+      "title": "Signed URL forge for object 7",
+      "type": "authz_bypass",
+      "severity": "high",
+      "endpoint": "/get.php",
+      "method": "GET",
+      "description": "sig from /sign or hmac",
+      "evidence_hint": "ARENA{vault_secret_object}",
+      "flag": "ARENA{vault_secret_object}",
+      "chain_id": "chain-vault-sign",
+      "chain_step": 2,
+      "tags": [
+        "chain",
+        "advanced"
+      ]
+    },
+    {
+      "id": "V-03",
+      "app": "vaultlite",
+      "title": "file= param path override",
+      "type": "path_traversal",
+      "severity": "high",
+      "endpoint": "/get.php",
+      "method": "GET",
+      "description": "file=vault/object-7.txt",
+      "evidence_hint": "ARENA{vault_secret_object}",
+      "flag": "ARENA{vault_secret_object}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "creative"
+      ]
+    },
+    {
+      "id": "V-04",
+      "app": "vaultlite",
+      "title": "Upload filter bypass",
+      "type": "file_upload",
+      "severity": "critical",
+      "endpoint": "/upload.php",
+      "method": "POST",
+      "description": "double ext / magic bypass",
+      "evidence_hint": "ARENA{vault_upload_bypass}",
+      "flag": "ARENA{vault_upload_bypass}",
+      "chain_id": "chain-vault-upload",
+      "chain_step": 1,
+      "tags": [
+        "advanced",
+        "rce"
+      ]
+    },
+    {
+      "id": "V-05",
+      "app": "vaultlite",
+      "title": "Include uploaded via view",
+      "type": "path_traversal",
+      "severity": "critical",
+      "endpoint": "/view.php",
+      "method": "GET",
+      "description": "f points to upload",
+      "evidence_hint": "RCE/include",
+      "flag": null,
+      "chain_id": "chain-vault-upload",
+      "chain_step": 2,
+      "tags": [
+        "rce",
+        "chain"
+      ]
+    },
+    {
+      "id": "V-06",
+      "app": "vaultlite",
+      "title": "Second-order command injection",
+      "type": "command_injection",
+      "severity": "critical",
+      "endpoint": "/cgi.php",
+      "method": "GET",
+      "description": "set= then run=1",
+      "evidence_hint": "ARENA{vault_second_order_cmdi}",
+      "flag": "ARENA{vault_second_order_cmdi}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "advanced",
+        "rce"
+      ]
+    },
+    {
+      "id": "V-07",
+      "app": "vaultlite",
+      "title": "Weak auditor password prefix",
+      "type": "broken_auth",
+      "severity": "medium",
+      "endpoint": "/login.php",
+      "method": "POST",
+      "description": "aud-* accepted",
+      "evidence_hint": "auditor session",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "creative"
+      ]
+    },
+    {
+      "id": "F-01",
+      "app": "forge",
+      "title": "SSRF webhook",
+      "type": "ssrf",
+      "severity": "critical",
+      "endpoint": "/hooks/test",
+      "method": "POST",
+      "description": "fetches url",
+      "evidence_hint": "hit /internal/token",
+      "flag": "ARENA{forge_internal_token}",
+      "chain_id": "chain-forge-ssrf",
+      "chain_step": 1,
+      "tags": [
+        "advanced",
+        "chain"
+      ]
+    },
+    {
+      "id": "F-02",
+      "app": "forge",
+      "title": "Token to admin chain",
+      "type": "ssrf",
+      "severity": "critical",
+      "endpoint": "/internal/admin",
+      "method": "GET",
+      "description": "X-Forge-Token from SSRF",
+      "evidence_hint": "ARENA{forge_token_chain}",
+      "flag": "ARENA{forge_token_chain}",
+      "chain_id": "chain-forge-ssrf",
+      "chain_step": 2,
+      "tags": [
+        "chain"
+      ]
+    },
+    {
+      "id": "F-03",
+      "app": "forge",
+      "title": "Job command RCE",
+      "type": "command_injection",
+      "severity": "critical",
+      "endpoint": "/jobs/{id}",
+      "method": "GET",
+      "description": "finalize executes cmd",
+      "evidence_hint": "ARENA{forge_job_rce}",
+      "flag": "ARENA{forge_job_rce}",
+      "chain_id": "chain-forge-race",
+      "chain_step": 2,
+      "tags": [
+        "rce"
+      ]
+    },
+    {
+      "id": "F-04",
+      "app": "forge",
+      "title": "TOCTOU mutate cmd",
+      "type": "race_condition",
+      "severity": "high",
+      "endpoint": "/jobs/{id}/mutate",
+      "method": "POST",
+      "description": "change cmd before finalize",
+      "evidence_hint": "swap cmd to touch flag file",
+      "flag": null,
+      "chain_id": "chain-forge-race",
+      "chain_step": 1,
+      "tags": [
+        "advanced",
+        "chain"
+      ]
+    },
+    {
+      "id": "F-05",
+      "app": "forge",
+      "title": "SSTI template",
+      "type": "ssti",
+      "severity": "critical",
+      "endpoint": "/template",
+      "method": "GET",
+      "description": "Jinja from_string concat",
+      "evidence_hint": "{{7*7}}",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "advanced"
+      ]
+    },
+    {
+      "id": "F-06",
+      "app": "forge",
+      "title": "Job file download",
+      "type": "path_traversal",
+      "severity": "medium",
+      "endpoint": "/download",
+      "method": "GET",
+      "description": "f=private.env",
+      "evidence_hint": "ARENA{forge_job_file}",
+      "flag": "ARENA{forge_job_file}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "F-07",
+      "app": "forge",
+      "title": "Open redirect",
+      "type": "open_redirect",
+      "severity": "low",
+      "endpoint": "/redirect",
+      "method": "GET",
+      "description": "next param",
+      "evidence_hint": "external",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "F-08",
+      "app": "forge",
+      "title": "JSONP response mode",
+      "type": "response_manipulation",
+      "severity": "medium",
+      "endpoint": "/headers",
+      "method": "GET",
+      "description": "X-Output-Mode jsonp",
+      "evidence_hint": "ARENA{forge_jsonp}",
+      "flag": "ARENA{forge_jsonp}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "creative"
+      ]
+    },
+    {
+      "id": "C-01",
+      "app": "canvas",
+      "title": "Prototype pollution isAdmin",
+      "type": "prototype_pollution",
+      "severity": "critical",
+      "endpoint": "/api/settings",
+      "method": "POST",
+      "description": "__proto__.isAdmin",
+      "evidence_hint": "ARENA{canvas_proto_admin}",
+      "flag": "ARENA{canvas_proto_admin}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "advanced"
+      ]
+    },
+    {
+      "id": "C-02",
+      "app": "canvas",
+      "title": "EJS template injection",
+      "type": "ssti",
+      "severity": "critical",
+      "endpoint": "/render",
+      "method": "GET",
+      "description": "tpl ejs render",
+      "evidence_hint": "<%=7*7%>",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "advanced",
+        "rce"
+      ]
+    },
+    {
+      "id": "C-03",
+      "app": "canvas",
+      "title": "Path traversal pick",
+      "type": "path_traversal",
+      "severity": "medium",
+      "endpoint": "/pick",
+      "method": "GET",
+      "description": "file=secret.txt",
+      "evidence_hint": "ARENA{canvas_static_secret}",
+      "flag": "ARENA{canvas_static_secret}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "C-04",
+      "app": "canvas",
+      "title": "JSON array admin import",
+      "type": "parser_differential",
+      "severity": "medium",
+      "endpoint": "/api/import",
+      "method": "POST",
+      "description": "array body role admin",
+      "evidence_hint": "ARENA{canvas_json_array_admin}",
+      "flag": "ARENA{canvas_json_array_admin}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "creative"
+      ]
+    },
+    {
+      "id": "C-05",
+      "app": "canvas",
+      "title": "Open redirect filter bypass",
+      "type": "open_redirect",
+      "severity": "medium",
+      "endpoint": "/redir",
+      "method": "GET",
+      "description": "//evil passes startsWith /",
+      "evidence_hint": "to=//evil.example",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "creative"
+      ]
+    },
+    {
+      "id": "C-06",
+      "app": "canvas",
+      "title": "Source map leak",
+      "type": "information_disclosure",
+      "severity": "low",
+      "endpoint": "/static/board.js.map",
+      "method": "GET",
+      "description": "FLAG in sourcesContent",
+      "evidence_hint": "ARENA{canvas_sourcemap}",
+      "flag": "ARENA{canvas_sourcemap}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "S-01",
+      "app": "spool",
+      "title": "Command injection convert",
+      "type": "command_injection",
+      "severity": "critical",
+      "endpoint": "/convert",
+      "method": "GET",
+      "description": "cmd to sh -c",
+      "evidence_hint": "ARENA{spool_cmdi}",
+      "flag": "ARENA{spool_cmdi}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "rce"
+      ]
+    },
+    {
+      "id": "S-02",
+      "app": "spool",
+      "title": "Read data flag",
+      "type": "information_disclosure",
+      "severity": "low",
+      "endpoint": "/read",
+      "method": "GET",
+      "description": "name=flag.txt",
+      "evidence_hint": "ARENA{spool_data_flag}",
+      "flag": "ARENA{spool_data_flag}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "S-03",
+      "app": "spool",
+      "title": "SSRF fetch",
+      "type": "ssrf",
+      "severity": "high",
+      "endpoint": "/fetch",
+      "method": "GET",
+      "description": "u= fetched",
+      "evidence_hint": "internal URLs",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "advanced"
+      ]
+    },
+    {
+      "id": "S-04",
+      "app": "spool",
+      "title": "Absolute path zip read",
+      "type": "path_traversal",
+      "severity": "high",
+      "endpoint": "/zip",
+      "method": "GET",
+      "description": "path=/data/flag.txt",
+      "evidence_hint": "ARENA{spool_data_flag}",
+      "flag": "ARENA{spool_data_flag}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "S-05",
+      "app": "spool",
+      "title": "Host header admin",
+      "type": "authz_bypass",
+      "severity": "medium",
+      "endpoint": "/hostcheck",
+      "method": "GET",
+      "description": "Host: spool-admin.internal",
+      "evidence_hint": "ARENA{spool_host_header}",
+      "flag": "ARENA{spool_host_header}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "creative"
+      ]
+    },
+    {
+      "id": "A-01",
+      "app": "atlas",
+      "title": "Source map stage env",
+      "type": "information_disclosure",
+      "severity": "medium",
+      "endpoint": "/assets/app.min.js.map",
+      "method": "GET",
+      "description": "sourcesContent flag",
+      "evidence_hint": "ARENA{atlas_sourcemap}",
+      "flag": "ARENA{atlas_sourcemap}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "A-02",
+      "app": "atlas",
+      "title": "Git HEAD exposed",
+      "type": "information_disclosure",
+      "severity": "low",
+      "endpoint": "/.git/HEAD",
+      "method": "GET",
+      "description": "git metadata",
+      "evidence_hint": "ref: refs/heads/main",
+      "flag": null,
+      "chain_id": "chain-atlas-git",
+      "chain_step": 1,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "A-03",
+      "app": "atlas",
+      "title": "Git config flag",
+      "type": "information_disclosure",
+      "severity": "medium",
+      "endpoint": "/.git/config",
+      "method": "GET",
+      "description": "flag in config comment",
+      "evidence_hint": "ARENA{atlas_git_config}",
+      "flag": "ARENA{atlas_git_config}",
+      "chain_id": "chain-atlas-git",
+      "chain_step": 2,
+      "tags": [
+        "leak",
+        "chain"
+      ]
+    },
+    {
+      "id": "A-04",
+      "app": "atlas",
+      "title": "index.php~ backup",
+      "type": "information_disclosure",
+      "severity": "medium",
+      "endpoint": "/index.php~",
+      "method": "GET",
+      "description": "editor backup file",
+      "evidence_hint": "ARENA{atlas_index_backup}",
+      "flag": "ARENA{atlas_index_backup}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "A-05",
+      "app": "atlas",
+      "title": "Backup alias listing",
+      "type": "information_disclosure",
+      "severity": "high",
+      "endpoint": "/backup/",
+      "method": "GET",
+      "description": "autoindex leaks",
+      "evidence_hint": "list .env and bak",
+      "flag": null,
+      "chain_id": "chain-atlas-backup",
+      "chain_step": 1,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "A-06",
+      "app": "atlas",
+      "title": "Backup env flag",
+      "type": "information_disclosure",
+      "severity": "high",
+      "endpoint": "/backup/.env",
+      "method": "GET",
+      "description": "env in leaks",
+      "evidence_hint": "ARENA{atlas_env_leak}",
+      "flag": "ARENA{atlas_env_leak}",
+      "chain_id": "chain-atlas-backup",
+      "chain_step": 2,
+      "tags": [
+        "leak",
+        "chain"
+      ]
+    },
+    {
+      "id": "A-07",
+      "app": "atlas",
+      "title": "Backup git pack flag",
+      "type": "information_disclosure",
+      "severity": "medium",
+      "endpoint": "/backup/site.git.bak",
+      "method": "GET",
+      "description": "bak content",
+      "evidence_hint": "ARENA{atlas_backup_pack}",
+      "flag": "ARENA{atlas_backup_pack}",
+      "chain_id": "chain-atlas-backup",
+      "chain_step": 2,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "A-08",
+      "app": "atlas",
+      "title": "Open redirect old",
+      "type": "open_redirect",
+      "severity": "low",
+      "endpoint": "/old",
+      "method": "GET",
+      "description": "next query redirect",
+      "evidence_hint": "next=http://evil",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "A-09",
+      "app": "atlas",
+      "title": "Nginx stub_status",
+      "type": "information_disclosure",
+      "severity": "low",
+      "endpoint": "/status",
+      "method": "GET",
+      "description": "stub_status exposed",
+      "evidence_hint": "Active connections",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "A-10",
+      "app": "atlas",
+      "title": "Cross-app note in backup",
+      "type": "information_disclosure",
+      "severity": "info",
+      "endpoint": "/backup/notes.txt",
+      "method": "GET",
+      "description": "hints forge SSRF path",
+      "evidence_hint": "forge /internal/token",
+      "flag": null,
+      "chain_id": "chain-cross-atlas-forge",
+      "chain_step": 1,
+      "tags": [
+        "chain"
+      ]
+    },
+    {
+      "id": "X-01",
+      "app": "ledger",
+      "title": "Verbose SQL error disclosure",
+      "type": "information_disclosure",
+      "severity": "low",
+      "endpoint": "/login.php",
+      "method": "POST",
+      "description": "DB errors returned to client",
+      "evidence_hint": "exception text",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "X-02",
+      "app": "ledger",
+      "title": "HTML comment leak debug path",
+      "type": "information_disclosure",
+      "severity": "info",
+      "endpoint": "/",
+      "method": "GET",
+      "description": "comment mentions /debug.php",
+      "evidence_hint": "debug panel hint",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "X-03",
+      "app": "bazaar",
+      "title": "Robots disallows ops",
+      "type": "information_disclosure",
+      "severity": "info",
+      "endpoint": "/robots.txt",
+      "method": "GET",
+      "description": "disallow /ops /internal",
+      "evidence_hint": "path discovery",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "X-04",
+      "app": "relay",
+      "title": "GraphQL users listing",
+      "type": "information_disclosure",
+      "severity": "medium",
+      "endpoint": "/graphql",
+      "method": "POST",
+      "description": "users query no authz",
+      "evidence_hint": "role listing",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "advanced"
+      ]
+    },
+    {
+      "id": "X-05",
+      "app": "mirror",
+      "title": "Legacy endpoint exists",
+      "type": "information_disclosure",
+      "severity": "info",
+      "endpoint": "/legacy",
+      "method": "GET",
+      "description": "undocumented legacy",
+      "evidence_hint": "legacy ok",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "X-06",
+      "app": "desk",
+      "title": "Serialize endpoint advertised",
+      "type": "information_disclosure",
+      "severity": "info",
+      "endpoint": "/",
+      "method": "GET",
+      "description": "homepage lists /serialize",
+      "evidence_hint": "discovery",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "X-07",
+      "app": "ink",
+      "title": "ERB render endpoint",
+      "type": "ssti",
+      "severity": "high",
+      "endpoint": "/render",
+      "method": "GET",
+      "description": "name into ERB",
+      "evidence_hint": "template injection attempt",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "advanced"
+      ]
+    },
+    {
+      "id": "X-08",
+      "app": "pulse",
+      "title": "History JSON of chat",
+      "type": "information_disclosure",
+      "severity": "low",
+      "endpoint": "/history",
+      "method": "GET",
+      "description": "messages stored",
+      "evidence_hint": "prior XSS payloads visible",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "X-09",
+      "app": "vaultlite",
+      "title": "Public signer endpoint",
+      "type": "information_disclosure",
+      "severity": "medium",
+      "endpoint": "/sign.php",
+      "method": "GET",
+      "description": "issues hmac for id",
+      "evidence_hint": "sig for id=7",
+      "flag": null,
+      "chain_id": "chain-vault-sign",
+      "chain_step": 1,
+      "tags": [
+        "chain"
+      ]
+    },
+    {
+      "id": "X-10",
+      "app": "forge",
+      "title": "Internal token path direct",
+      "type": "information_disclosure",
+      "severity": "medium",
+      "endpoint": "/internal/token",
+      "method": "GET",
+      "description": "if reachable on network",
+      "evidence_hint": "ARENA{forge_internal_token}",
+      "flag": "ARENA{forge_internal_token}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "advanced"
+      ]
+    },
+    {
+      "id": "X-11",
+      "app": "canvas",
+      "title": "Board.js hint",
+      "type": "information_disclosure",
+      "severity": "info",
+      "endpoint": "/static/board.js",
+      "method": "GET",
+      "description": "proto merge hint",
+      "evidence_hint": "settings pollution hint",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "X-12",
+      "app": "spool",
+      "title": "Weak rm filter only",
+      "type": "security_misconfiguration",
+      "severity": "low",
+      "endpoint": "/convert",
+      "method": "GET",
+      "description": "only blocks 'rm '",
+      "evidence_hint": "other commands allowed",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "creative"
+      ]
+    },
+    {
+      "id": "X-13",
+      "app": "atlas",
+      "title": "Autoindex root assets",
+      "type": "information_disclosure",
+      "severity": "info",
+      "endpoint": "/assets/",
+      "method": "GET",
+      "description": "directory listing if enabled",
+      "evidence_hint": "asset discovery",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "X-14",
+      "app": "ledger",
+      "title": "API help discloses ping",
+      "type": "information_disclosure",
+      "severity": "low",
+      "endpoint": "/api/help.php",
+      "method": "GET",
+      "description": "documents cmd ping",
+      "evidence_hint": "ops surface",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "X-15",
+      "app": "bazaar",
+      "title": "JSONP-style callback export",
+      "type": "response_manipulation",
+      "severity": "low",
+      "endpoint": "/export",
+      "method": "GET",
+      "description": "fmt=raw cb=",
+      "evidence_hint": "javascript wrapper",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "creative"
+      ]
+    },
+    {
+      "id": "X-16",
+      "app": "cross",
+      "title": "Atlas note to Forge SSRF",
+      "type": "chained_recon",
+      "severity": "medium",
+      "endpoint": "/backup/notes.txt",
+      "method": "GET",
+      "description": "cross-app pivot hint",
+      "evidence_hint": "use with forge hook",
+      "flag": null,
+      "chain_id": "chain-cross-atlas-forge",
+      "chain_step": 1,
+      "tags": [
+        "chain"
+      ]
+    },
+    {
+      "id": "X-17",
+      "app": "cross",
+      "title": "Forge admin via Atlas hint",
+      "type": "ssrf",
+      "severity": "high",
+      "endpoint": "http://127.0.0.1:18009/hooks/test",
+      "method": "POST",
+      "description": "complete cross-app chain",
+      "evidence_hint": "ARENA{forge_token_chain}",
+      "flag": "ARENA{forge_token_chain}",
+      "chain_id": "chain-cross-atlas-forge",
+      "chain_step": 2,
+      "tags": [
+        "chain"
+      ]
+    },
+    {
+      "id": "X-18",
+      "app": "relay",
+      "title": "Health without debug",
+      "type": "info",
+      "severity": "info",
+      "endpoint": "/health",
+      "method": "GET",
+      "description": "baseline health",
+      "evidence_hint": "ok true",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    },
+    {
+      "id": "X-19",
+      "app": "vaultlite",
+      "title": "List objects discloses id 7",
+      "type": "information_disclosure",
+      "severity": "low",
+      "endpoint": "/list.php",
+      "method": "GET",
+      "description": "internal object listed",
+      "evidence_hint": "id 7",
+      "flag": null,
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "leak"
+      ]
+    },
+    {
+      "id": "X-20",
+      "app": "desk",
+      "title": "Cookie admin without login UI hardening",
+      "type": "broken_auth",
+      "severity": "medium",
+      "endpoint": "/admin",
+      "method": "GET",
+      "description": "forge cookie alone enough",
+      "evidence_hint": "ARENA{desk_admin_cookie}",
+      "flag": "ARENA{desk_admin_cookie}",
+      "chain_id": null,
+      "chain_step": null,
+      "tags": [
+        "common"
+      ]
+    }
+  ],
+  "chains": [
+    {
+      "id": "chain-ledger-admin",
+      "title": "SQLi/login \u2192 invoice IDOR \u2192 admin panel",
+      "apps": [
+        "ledger"
+      ]
+    },
+    {
+      "id": "chain-ledger-reset",
+      "title": "Profile token leak \u2192 reset login \u2192 admin",
+      "apps": [
+        "ledger"
+      ]
+    },
+    {
+      "id": "chain-ledger-debug",
+      "title": "JS key \u2192 debug panel",
+      "apps": [
+        "ledger"
+      ]
+    },
+    {
+      "id": "chain-ledger-upload",
+      "title": "Upload \u2192 execute",
+      "apps": [
+        "ledger"
+      ]
+    },
+    {
+      "id": "chain-bazaar-ssrf",
+      "title": "SSRF meta \u2192 admin token",
+      "apps": [
+        "bazaar"
+      ]
+    },
+    {
+      "id": "chain-relay-jwt",
+      "title": "Login/JWT none \u2192 privilege",
+      "apps": [
+        "relay"
+      ]
+    },
+    {
+      "id": "chain-mirror-ssrf",
+      "title": "Proxy/header \u2192 internal flag",
+      "apps": [
+        "mirror"
+      ]
+    },
+    {
+      "id": "chain-desk-cookie",
+      "title": "Login/cookie forge \u2192 admin",
+      "apps": [
+        "desk"
+      ]
+    },
+    {
+      "id": "chain-pulse-xss",
+      "title": "XSS \u2192 mod cookie \u2192 flag",
+      "apps": [
+        "pulse"
+      ]
+    },
+    {
+      "id": "chain-vault-sign",
+      "title": "JS secret \u2192 signed object",
+      "apps": [
+        "vaultlite"
+      ]
+    },
+    {
+      "id": "chain-vault-upload",
+      "title": "Upload bypass \u2192 include",
+      "apps": [
+        "vaultlite"
+      ]
+    },
+    {
+      "id": "chain-forge-ssrf",
+      "title": "Hook SSRF \u2192 token \u2192 admin",
+      "apps": [
+        "forge"
+      ]
+    },
+    {
+      "id": "chain-forge-race",
+      "title": "Mutate job \u2192 finalize RCE",
+      "apps": [
+        "forge"
+      ]
+    },
+    {
+      "id": "chain-atlas-git",
+      "title": "Git HEAD \u2192 config flag",
+      "apps": [
+        "atlas"
+      ]
+    },
+    {
+      "id": "chain-atlas-backup",
+      "title": "Backup index \u2192 env/pack",
+      "apps": [
+        "atlas"
+      ]
+    },
+    {
+      "id": "chain-cross-atlas-forge",
+      "title": "Atlas notes \u2192 Forge SSRF chain",
+      "apps": [
+        "atlas",
+        "forge"
+      ]
+    }
+  ]
+}

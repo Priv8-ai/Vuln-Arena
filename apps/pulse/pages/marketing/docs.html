@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" data-theme="pulse">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#050B08">
+<meta name="description" content="Signalwatch notes for the channel, reports, the mod bot, and history.">
+<title>Docs — Signalwatch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/chrome.css">
+<link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="brand" href="/"><span class="brand-mark">Po</span> Signalwatch</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links">Menu</button>
+  <nav id="site-nav-links" class="nav-links" aria-label="Primary">
+    <a href="/product">Product</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/customers">Customers</a>
+    <a href="/docs" class="is-active">Docs</a>
+    <a class="nav-cta" href="/#floor">Open the floor</a>
+  </nav>
+</header>
+<main class="page" id="main">
+  <h1>How the floor is wired</h1>
+  <p class="lede">Four surfaces. The socket carries the live notes. The other three are ordinary HTTP.</p>
+  <h2>Channel</h2>
+  <p>Connect to <code>/ws</code> on this host. Send a text frame. Every open client receives that text, and the home floor paints it into the log.</p>
+  <pre class="sample"><code>const ws = new WebSocket((location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/ws");
+ws.send("handoff complete");</code></pre>
+  <h2>History</h2>
+  <p><a href="/history">GET /history</a> returns the transcript as a JSON array, oldest first.</p>
+  <h2>Reports</h2>
+  <p><a href="/report">GET /report</a> is the form. POST the same path with a <code>body</code> field (or JSON <code>message</code>). The response is <code>{ "ok": true, "id": n }</code>.</p>
+  <h2>Mod bot</h2>
+  <p><a href="/mod">GET /mod</a> is the queue. Each stored report is shown in order.</p>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand" href="/"><span class="brand-mark">Po</span> Signalwatch</a>
+      <p>The operations channel for desks that cannot miss a line.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <a href="/product">Overview</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/status">Status</a>
+    </div>
+    <div>
+      <h4>Floor</h4>
+      <a href="/">Live channel</a>
+      <a href="/report">Report abuse</a>
+      <a href="/mod">Mod bot</a>
+    </div>
+  </div>
+  <p class="foot-note">© 2026 Signalwatch.</p>
+</footer>
+<script src="/assets/chrome.js"></script>
+<script src="/assets/app.js"></script>
+</body>
+</html>

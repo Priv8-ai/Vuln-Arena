@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" data-theme="relay">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1B1B21">
+<meta name="description" content="How a request moves through Relaywork, from login to health.">
+<title>Product — Relaywork</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/chrome.css">
+<link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="brand" href="/"><span class="brand-mark">Rh</span> Relaywork</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links">Menu</button>
+  <nav id="site-nav-links" class="nav-links" aria-label="Primary">
+    <a href="/product" class="is-active">Product</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/customers">Customers</a>
+    <a href="/docs">Docs</a>
+    <a class="nav-cta" href="/docs">Open the console</a>
+  </nav>
+</header>
+<main class="page" id="main">
+  <h1>One host. The calls you already make.</h1>
+  <p class="lede">Relaywork is not a mesh and not a portal. It is the console in front of login, notes, profile, GraphQL, merge, and health.</p>
+  <ol class="steps">
+    <li><strong>Exchange a password for a session.</strong> POST /auth/login with user and pass. The response carries the bearer token later calls send.</li>
+    <li><strong>Read a note by id.</strong> GET /api/notes/:id returns the owner and the body recorded for that id.</li>
+    <li><strong>Update the profile document.</strong> POST /api/profile writes the fields you send onto the signed-in profile.</li>
+    <li><strong>Ask GraphQL.</strong> POST /graphql accepts a query document. Users and the schema are both queryable from that route.</li>
+    <li><strong>Merge a config object.</strong> POST /api/merge folds a JSON document into the working copy your service just built.</li>
+    <li><strong>Check health.</strong> GET /health answers { ok: true } for the load balancer. The same route can answer more when an operator asks.</li>
+  </ol>
+  <div class="grid-3" style="margin-top:2rem">
+    <article class="card feature">
+      <h3>Token on the wire</h3>
+      <p>Send Authorization: Bearer with the token from login. The console does not keep a second session store.</p>
+    </article>
+    <article class="card feature">
+      <h3>JSON in, JSON out</h3>
+      <p>Profile, merge, and GraphQL all speak JSON. The batch helper reads the raw document from the X-Raw-Json header when you need it.</p>
+    </article>
+    <article class="card feature">
+      <h3>Stay on the private network</h3>
+      <p>Relaywork is meant to sit next to the services that call it. There is no public signup desk.</p>
+    </article>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand" href="/"><span class="brand-mark">Rh</span> Relaywork</a>
+      <p>The API console internal platform teams leave running.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <a href="/product">Overview</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/customers">Customers</a>
+      <a href="/changelog">Changelog</a>
+    </div>
+    <div>
+      <h4>Developers</h4>
+      <a href="/docs">API reference</a>
+      <a href="/health">Health</a>
+    </div>
+  </div>
+  <p class="foot-note">© 2026 Relaywork. For private networks.</p>
+</footer>
+<script src="/assets/chrome.js"></script>
+<script src="/assets/app.js"></script>
+</body>
+</html>

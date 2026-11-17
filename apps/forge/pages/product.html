@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" data-theme="forge">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#140E0C">
+<meta name="description" content="How a Foundry CI run moves from webhook to file.">
+<title>Product — Foundry CI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/chrome.css">
+<link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="brand" href="/"><span class="brand-mark">Fp</span> Foundry CI</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links">Menu</button>
+  <nav id="site-nav-links" class="nav-links" aria-label="Primary">
+    <a href="/product" class="is-active">Product</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/customers">Plants</a>
+    <a href="/guide">Docs</a>
+    <a class="nav-cta" href="/#pipeline">View the line</a>
+  </nav>
+</header>
+<main class="page" id="main">
+  <h1>A hook, a job, a name, a file.</h1>
+  <p class="lede">Foundry CI does not invent a new build system. It runs the four calls a plant already makes when a webhook should become a job.</p>
+  <div class="rail">
+    <article class="stage"><strong>Test the hook</strong><span>POST /hooks/test with a url. The forge fetches it and returns the front of the body.</span></article>
+    <article class="stage"><strong>Queue the job</strong><span>POST /jobs with a cmd and an owner. You get an id while the run is pending.</span></article>
+    <article class="stage"><strong>Read it back</strong><span>GET /jobs/{id} returns the record for that id.</span></article>
+    <article class="stage"><strong>Name and collect</strong><span>GET /template?name= renders the greeting. GET /download?f= returns the stored file.</span></article>
+  </div>
+  <p><a class="btn btn-primary" href="/guide">Open the reference</a></p>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand" href="/"><span class="brand-mark">Fp</span> Foundry CI</a>
+      <p>The job line for plants that start work from a webhook.</p>
+    </div>
+    <div>
+      <h4>Line</h4>
+      <a href="/pricing">Pricing</a>
+      <a href="/customers">Plants</a>
+      <a href="/changelog">Changelog</a>
+    </div>
+    <div>
+      <h4>Run</h4>
+      <a href="/guide">Docs</a>
+      <a href="/template?name=world">Template</a>
+    </div>
+  </div>
+  <p class="foot-note">© 2026 Foundry CI.</p>
+</footer>
+<script src="/assets/chrome.js"></script>
+<script src="/assets/app.js"></script>
+</body>
+</html>

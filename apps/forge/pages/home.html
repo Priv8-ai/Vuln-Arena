@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en" data-theme="forge">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#140E0C">
+<meta name="description" content="Foundry CI runs jobs that start from a webhook and a template.">
+<title>Foundry CI — jobs that start at the webhook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/chrome.css">
+<link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="brand" href="/"><span class="brand-mark">Fp</span> Foundry CI</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links">Menu</button>
+  <nav id="site-nav-links" class="nav-links" aria-label="Primary">
+    <a href="/product">Product</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/customers">Plants</a>
+    <a href="/guide">Docs</a>
+    <a class="nav-cta" href="#pipeline">View the line</a>
+  </nav>
+</header>
+<main id="main">
+  <section class="hero">
+    <div class="hero-grid split">
+      <div>
+        <h1>Pipelines that start when a webhook lands.</h1>
+        <p class="lede">Foundry CI is the job runner for plants that already fire a hook: queue a run, render its name, and pull the file it left behind.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#name">Render a job name</a>
+          <a class="btn btn-ghost" href="/guide">Read the routes</a>
+        </div>
+      </div>
+      <div class="reveal" id="pipeline">
+        <div class="rail" aria-label="Pipeline stages">
+          <article class="stage"><strong>1. Hook</strong><span>A caller posts the URL the forge should fetch.</span></article>
+          <article class="stage"><strong>2. Job</strong><span>The run is queued with a command and an owner.</span></article>
+          <article class="stage"><strong>3. Name</strong><span>A template renders the greeting on the job.</span></article>
+          <article class="stage"><strong>4. File</strong><span>Download pulls the artifact the run stored.</span></article>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-inner">
+      <h2>Routes on the line</h2>
+      <p class="sub">The same calls the plant scripts already make.</p>
+      <ul class="list-clean mono">
+        <li>POST /hooks/test {url}</li>
+        <li>POST /jobs</li>
+        <li>GET /jobs/{id}</li>
+        <li>GET /template?name=</li>
+        <li>GET /download?f=</li>
+      </ul>
+      <div class="pair" style="margin-top:1.5rem" id="name">
+        <form class="card form-stack" action="/template" method="get">
+          <h3>Render a job name</h3>
+          <label for="job-name">Name</label>
+          <input id="job-name" name="name" value="world">
+          <button class="btn btn-primary" type="submit">Render name</button>
+        </form>
+        <article class="card">
+          <h3>A sample shift</h3>
+          <table class="table">
+            <thead><tr><th scope="col">Job</th><th scope="col">State</th></tr></thead>
+            <tbody>
+              <tr><td>kiln-nightly</td><td>pending</td></tr>
+              <tr><td>pack-line-4</td><td>done</td></tr>
+              <tr><td>webhook-replay</td><td>pending</td></tr>
+            </tbody>
+          </table>
+          <p class="muted">Sample rows, not the live queue. Real jobs are the ones you POST.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand" href="/"><span class="brand-mark">Fp</span> Foundry CI</a>
+      <p>The job line for plants that start work from a webhook.</p>
+    </div>
+    <div>
+      <h4>Line</h4>
+      <a href="/product">Product</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/customers">Plants</a>
+      <a href="/changelog">Changelog</a>
+    </div>
+    <div>
+      <h4>Run</h4>
+      <a href="/guide">Docs</a>
+      <a href="/template?name=world">Template</a>
+      <a href="/guide#routes">Download</a>
+    </div>
+  </div>
+  <p class="foot-note">© 2026 Foundry CI.</p>
+</footer>
+<script src="/assets/chrome.js"></script>
+<script src="/assets/app.js"></script>
+</body>
+</html>

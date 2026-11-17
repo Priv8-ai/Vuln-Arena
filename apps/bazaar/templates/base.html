@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" data-theme="bazaar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3D7A6B">
+<title>{% block title %}Morrow Market{% endblock %}</title>
+<meta name="description" content="{% block description %}Morrow Market is a trading house for objects that still carry the maker’s name.{% endblock %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/chrome.css">
+<link rel="stylesheet" href="/static/bazaar.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233D7A6B'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Arial' font-size='16' fill='white'%3ES%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<nav class="site-nav" aria-label="Primary">
+  <a class="brand" href="/"><span class="brand-mark">S</span> Morrow Market</a>
+  <div class="nav-links">
+    <a href="/" class="{% if active == 'home' %}is-active{% endif %}" {% if active == 'home' %}aria-current="page"{% endif %}>The floor</a>
+    <a href="/sellers" class="{% if active == 'sellers' %}is-active{% endif %}" {% if active == 'sellers' %}aria-current="page"{% endif %}>Makers</a>
+    <a href="/journal" class="{% if active == 'journal' %}is-active{% endif %}" {% if active == 'journal' %}aria-current="page"{% endif %}>Journal</a>
+    <a href="/about" class="{% if active == 'about' %}is-active{% endif %}" {% if active == 'about' %}aria-current="page"{% endif %}>The house</a>
+  </div>
+  {% if user %}
+  <span class="chip">Hi {{ user }}</span>
+  {% else %}
+  <a class="nav-cta" href="/login">Account</a>
+  {% endif %}
+</nav>
+{% block content %}{% endblock %}
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand" href="/"><span class="brand-mark">S</span> Morrow Market</a>
+      <p>A small trading floor for copper, cloth, spice, and the objects makers will not put on a grid. The tag still has a name.</p>
+      <p>Courtyard room, Harbour Market</p>
+    </div>
+    <div>
+      <h4>Visit</h4>
+      <a href="/">The floor</a>
+      <a href="/sellers">Sell with the house</a>
+      <a href="/journal">Journal</a>
+      <a href="/about">The house</a>
+      <a href="/login">Account</a>
+    </div>
+    <div>
+      <h4>Desk</h4>
+      <a href="/render?name=shopper">Greeter</a>
+      <a href="/hook">Webhook desk</a>
+      <a href="/login">Sign in</a>
+    </div>
+  </div>
+  <div class="section-inner legal">© 2026 Morrow Market. Goods leave with a provenance card.</div>
+</footer>
+<script src="/static/chrome.js"></script>
+</body>
+</html>

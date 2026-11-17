@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" data-theme="canvas">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F2F7F5">
+<meta name="description" content="What a Kiteboard board holds: title, files, templates, and import.">
+<title>Product — Kiteboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/chrome.css">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="brand" href="/"><span class="brand-mark">Sc</span> Kiteboard</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links">Menu</button>
+  <nav id="site-nav-links" class="nav-links" aria-label="Primary">
+    <a href="/product" class="is-active">Product</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/customers">Studios</a>
+    <a href="/docs">Docs</a>
+    <a class="nav-cta" href="/#board">Open the board</a>
+  </nav>
+</header>
+<main class="page" id="main">
+  <h1>The board is the room.</h1>
+  <p class="lede">Kiteboard keeps four things within reach: the board’s settings, a template render, a file pick, and an import when a deck arrives as JSON.</p>
+  <div class="grid-3">
+    <article class="card feature">
+      <h3>Settings</h3>
+      <p>POST /api/settings stores the board title and any other fields the studio sends. The home heading reads that title back.</p>
+    </article>
+    <article class="card feature">
+      <h3>Templates</h3>
+      <p>GET /render?tpl= turns the template string into the preview line. The form on the home board posts there.</p>
+    </article>
+    <article class="card feature">
+      <h3>Files and import</h3>
+      <p>GET /pick?file= reads a file that lives with the board. POST /api/import accepts the JSON a producer hands over.</p>
+    </article>
+  </div>
+  <p style="margin-top:1.5rem"><a class="btn btn-primary" href="/workflow">Walk the workflow</a></p>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand" href="/"><span class="brand-mark">Sc</span> Kiteboard</a>
+      <p>Boards for studios that still work in the same room.</p>
+    </div>
+    <div>
+      <h4>Studio</h4>
+      <a href="/pricing">Pricing</a>
+      <a href="/customers">Studios</a>
+      <a href="/workflow">Workflow</a>
+    </div>
+    <div>
+      <h4>Board</h4>
+      <a href="/docs">Docs</a>
+      <a href="/">Open board</a>
+    </div>
+  </div>
+  <p class="foot-note">© 2026 Kiteboard.</p>
+</footer>
+<script src="/static/chrome.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

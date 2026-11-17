@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en" data-layout="{{ experience.layout }}" style="--accent:{{ profile.accent }};--accent-2:{{ experience.accent2 }}">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="{{ profile.accent }}"><link rel="icon" href="data:,"><title>{{ experience.workspace_title }} — {{ profile.brand }}</title><link rel="stylesheet" href="/static/app.css"><link rel="stylesheet" href="/static/experience.css"></head>
+<body data-category="{{ profile.category }}" data-layout="{{ experience.layout }}" data-font="{{ experience.font }}" class="product-page">
+<a class="skip" href="#main">Skip to content</a>{% include "_nav.html" %}
+<main id="main" class="app-shell">
+  <aside class="app-rail" aria-label="Workspace sections"><a class="rail-brand" href="/"><span>{{ experience.icon }}</span></a><a class="active" href="/workspace">Overview</a><a href="/library">{{ experience.primary }}</a><a href="/insights">{{ experience.tertiary }}</a><a href="/moderation">Review</a><a href="/api/profile">API</a></aside>
+  <section class="app-main">
+    <header class="app-header"><div><p class="eyebrow">{{ experience.kicker }}</p><h1>{{ experience.workspace_title }}</h1><p>{{ experience.summary }}</p>{% if emulated_route %}<span class="route-pill">Family route: <code>{{ emulated_route }}</code></span>{% endif %}</div><div class="header-actions"><button class="button secondary" type="button">Filter</button><a class="button primary" href="/library">New {{ experience.primary|lower }}</a></div></header>
+    <div class="metric-strip">{% for value, label in experience.metrics %}<article><small>{{ label }}</small><strong>{{ value }}</strong><span class="metric-delta">↑ {{ 3 + loop.index * 2 }}% this period</span></article>{% endfor %}</div>
+    <div class="workspace-grid">
+      <section class="panel queue-panel"><header><div><small>Active queue</small><h2>{{ experience.secondary }}</h2></div><a href="/library">View all</a></header><div class="queue-table">{% for row in experience.rows %}<article><span class="row-icon">{{ loop.index }}</span><div><b>{{ row }}</b><small>Updated {{ loop.index * 7 }} minutes ago · {{ experience.stages[loop.index0] }}</small></div><span class="state state-{{ loop.index }}">{{ ["Ready","Review","Scheduled"][loop.index0] }}</span><button aria-label="More actions">•••</button></article>{% endfor %}</div></section>
+      <aside class="panel pulse-panel"><small>Workflow pulse</small><h2>On track</h2><div class="donut"><span>84%</span></div><ol>{% for stage in experience.stages %}<li><i style="--progress:{{ 90 - loop.index * 17 }}%"></i><span>{{ stage }}</span><b>{{ 12 - loop.index * 2 }}</b></li>{% endfor %}</ol></aside>
+      <section class="panel activity-panel"><header><div><small>Recent activity</small><h2>Team handoffs</h2></div></header><div class="activity-list">{% for row in experience.rows %}<article><span>{{ ["AR","MO","SK"][loop.index0] }}</span><p><b>{{ ["Ari","Morgan","Sam"][loop.index0] }}</b> moved <strong>{{ row }}</strong> to {{ experience.stages[loop.index0]|lower }}.</p><time>{{ loop.index * 12 }}m</time></article>{% endfor %}</div></section>
+      <section class="panel action-panel"><small>Connected action</small><h2>Test an integration</h2><p>Preview a destination from the application environment before enabling the handoff.</p><form class="compact-form" action="/api/integrations/preview"><input name="url" aria-label="Destination URL" value="http://cms-metadata:8081/status"><button class="button primary">Preview</button></form></section>
+    </div>
+  </section>
+</main><script src="/static/app.js" defer></script></body></html>

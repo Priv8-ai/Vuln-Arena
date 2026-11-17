@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Morrow Market — Objects with a maker’s name{% endblock %}
+{% block description %}Walk the Morrow Market floor. Lots priced on the tag, sold with the maker still attached.{% endblock %}
+{% block content %}
+<section class="hero" id="content">
+  <div class="hero-grid split">
+    <div>
+      <p class="eyebrow">Bazaar Market</p>
+      <h1>Buy from the person who made it.</h1>
+      <p class="lede">Morrow Market is a trading house for copper, cloth, spice, and the oddities a maker will not list on a grid. Prices are on the tag. The name stays on the card.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#floor">Walk the floor</a>
+        <a class="btn btn-ghost" href="/sellers">Sell with us</a>
+      </div>
+      <p>{% if user %}Hi {{user}}{% else %}<a href="/login">Login</a>{% endif %}</p>
+    </div>
+    <div class="hero-visual mosaic" aria-hidden="true">
+      <div class="tile tall">
+        <span class="kicker">Lot 18</span>
+        <strong>Copper kettle</strong>
+        <span>Heat, hammer, one bench.</span>
+      </div>
+      <div class="tile sand">
+        <span class="kicker">Cloth</span>
+        <strong>Coastal weave</strong>
+      </div>
+      <div class="tile leaf">
+        <span class="kicker">This week</span>
+        <strong>Spice tin</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="floor">
+  <div class="section-inner">
+    <h2>On the floor this week</h2>
+    <p class="sub">Every lot the house is willing to sell. The price on the card is the price on the tag.</p>
+    <div class="catalog">
+      {% for it in items %}
+      <article class="item card product reveal">
+        <p class="eyebrow">Listed by {{ it['seller'] }}</p>
+        <h3><a href="/item/{{it['id']}}">{{it['title']}}</a> — ${{it['price']}}</h3>
+        <p>{{ it['desc'] }}</p>
+      </article>
+      {% endfor %}
+    </div>
+    {% if not items %}
+    <p class="muted">The floor is being reset. Look again shortly.</p>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section band">
+  <div class="section-inner">
+    <h2>A house, not a feed.</h2>
+    <p class="sub">We keep the floor small enough that a buyer can still ask who hammered the kettle.</p>
+    <div class="grid-3">
+      <article class="card feature reveal">
+        <h3>Named makers</h3>
+        <p>Every lot names the person who brought it. Anonymous goods do not clear the desk.</p>
+      </article>
+      <article class="card feature reveal">
+        <h3>Orders the desk can read</h3>
+        <p>A quantity, a tag, a total. Someone at the courtyard still looks at the order before it leaves.</p>
+      </article>
+      <article class="card feature reveal">
+        <h3>Notes from buyers</h3>
+        <p>Collectors leave a line on the lot. The next person reads it before they buy.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <p class="pull">“We still write the maker’s name on the tag. The floor is small on purpose.”</p>
+    <p class="pull-by">Floor lead, Morrow Market</p>
+    <p style="margin-top:1.4rem"><a class="btn btn-ghost" href="/journal">Read the journal</a></p>
+    <p class="muted" style="margin-top:2rem"><a href="/render?name=shopper">greeter</a> · <a href="/hook">webhook debug</a></p>
+    <!-- /internal/meta is for cloud probes only -->
+  </div>
+</section>
+{% endblock %}

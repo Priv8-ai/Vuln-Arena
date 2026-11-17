@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" data-theme="forge">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#140E0C">
+<meta name="description" content="Foundry CI reference for hooks, jobs, templates, and downloads.">
+<title>Docs — Foundry CI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/chrome.css">
+<link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="brand" href="/"><span class="brand-mark">Fp</span> Foundry CI</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links">Menu</button>
+  <nav id="site-nav-links" class="nav-links" aria-label="Primary">
+    <a href="/product">Product</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/customers">Plants</a>
+    <a href="/guide" class="is-active">Docs</a>
+    <a class="nav-cta" href="/#name">Render a name</a>
+  </nav>
+</header>
+<main class="page" id="main">
+  <h1>Line reference</h1>
+  <p class="lede">JSON for the posts. Query strings for the reads. Base URL is this host.</p>
+  <ul class="list-clean mono" id="routes">
+    <li>POST /hooks/test {url}</li>
+    <li>POST /jobs</li>
+    <li>GET /jobs/{id}</li>
+    <li>GET /template?name=</li>
+    <li>GET /download?f=</li>
+  </ul>
+  <h2>Hook test</h2>
+  <p>POST /hooks/test with <code>{ "url": "https://..." }</code>. The forge fetches that address and returns the first part of the body as text.</p>
+  <pre class="sample"><code>curl -s -X POST "$ORIGIN/hooks/test" \
+  -H "content-type: application/json" \
+  -d '{"url":"https://example.com"}'</code></pre>
+  <h2>Jobs</h2>
+  <p>POST /jobs with <code>cmd</code> and <code>owner</code>. The response includes the new id and a pending status. GET /jobs/{id} returns that record.</p>
+  <h2>Template</h2>
+  <p><a href="/template?name=world">GET /template?name=world</a> renders a greeting from the <code>name</code> query. The home form submits the same field.</p>
+  <h2>Download</h2>
+  <p><a href="/download">GET /download?f=</a> returns a file from the jobs directory. The query name is <code>f</code>.</p>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand" href="/"><span class="brand-mark">Fp</span> Foundry CI</a>
+      <p>The job line for plants that start work from a webhook.</p>
+    </div>
+    <div>
+      <h4>Line</h4>
+      <a href="/product">Product</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/changelog">Changelog</a>
+    </div>
+    <div>
+      <h4>Run</h4>
+      <a href="/template?name=world">Template</a>
+      <a href="/download">Download</a>
+    </div>
+  </div>
+  <p class="foot-note">© 2026 Foundry CI.</p>
+</footer>
+<script src="/assets/chrome.js"></script>
+<script src="/assets/app.js"></script>
+</body>
+</html>

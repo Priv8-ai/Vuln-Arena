@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" data-theme="relay">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1B1B21">
+<meta name="description" content="Relaywork API reference for login, notes, profile, GraphQL, merge, and health.">
+<title>Docs — Relaywork</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/chrome.css">
+<link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="brand" href="/"><span class="brand-mark">Rh</span> Relaywork</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links">Menu</button>
+  <nav id="site-nav-links" class="nav-links" aria-label="Primary">
+    <a href="/product">Product</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/customers">Customers</a>
+    <a href="/docs" class="is-active">Docs</a>
+    <a class="nav-cta" href="#login">Try login</a>
+  </nav>
+</header>
+<main class="page" id="main">
+  <h1>API reference</h1>
+  <p class="lede">Base URL is this host. Send JSON. Send the bearer token from login on every route that asks for a session.</p>
+  <h2 id="routes">Route list</h2>
+  <ul class="list-clean mono api-index">
+    <li>POST /auth/login {"user","pass"}</li>
+    <li>GET /api/notes/:id</li>
+    <li>POST /api/profile</li>
+    <li>POST /graphql</li>
+    <li>POST /api/merge</li>
+    <li>GET /health</li>
+  </ul>
+
+  <h2 id="login">Login</h2>
+  <p>POST /auth/login with a JSON body of user and pass. A matching account returns <code>{ "token" }</code>.</p>
+  <pre class="sample"><code>curl -s -X POST "$ORIGIN/auth/login" \
+  -H "content-type: application/json" \
+  -d '{"user":"YOUR_USER","pass":"YOUR_PASS"}'</code></pre>
+
+  <h2>Notes</h2>
+  <p>GET /api/notes/:id with <code>Authorization: Bearer TOKEN</code>. The body is the note stored for that id. <a href="/api/notes/2">/api/notes/2</a> is the shape, and it expects a session.</p>
+
+  <h2>Profile</h2>
+  <p>POST /api/profile with the bearer token and a JSON object. Fields you send are copied onto the profile returned to you.</p>
+
+  <h2>GraphQL</h2>
+  <p>POST /graphql with a JSON body whose <code>query</code> field is the document you want to run.</p>
+  <pre class="sample"><code>curl -s -X POST "$ORIGIN/graphql" \
+  -H "content-type: application/json" \
+  -d '{"query":"{ ... }"}'</code></pre>
+
+  <h2>Merge</h2>
+  <p>POST /api/merge with a JSON object. Nested objects are folded into the working document and the result is returned.</p>
+
+  <h2>Health</h2>
+  <p><a href="/health">GET /health</a> returns <code>{ "ok": true }</code> for the checker.</p>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand" href="/"><span class="brand-mark">Rh</span> Relaywork</a>
+      <p>The API console internal platform teams leave running.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <a href="/product">Overview</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/changelog">Changelog</a>
+    </div>
+    <div>
+      <h4>Developers</h4>
+      <a href="/docs">API reference</a>
+      <a href="/health">Health</a>
+    </div>
+  </div>
+  <p class="foot-note">© 2026 Relaywork. For private networks.</p>
+</footer>
+<script src="/assets/chrome.js"></script>
+<script src="/assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en" data-theme="pulse">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#050B08">
+<meta name="description" content="Signalwatch is the live channel for a trading floor and the desk that reviews it.">
+<title>Signalwatch — the floor channel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/chrome.css">
+<link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="brand" href="/"><span class="brand-mark">Po</span> Signalwatch</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links">Menu</button>
+  <nav id="site-nav-links" class="nav-links" aria-label="Primary">
+    <a href="/product">Product</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/customers">Customers</a>
+    <a href="/docs">Docs</a>
+    <a class="nav-cta" href="#floor">Open the floor</a>
+  </nav>
+</header>
+<main id="main">
+  <section class="hero floor">
+    <div class="hero-grid split">
+      <div>
+        <h1>The channel that stays up when the tape doesn’t.</h1>
+        <p class="lede">Signalwatch is the floor’s live line. Traders write into the channel. The moderation desk reads what was reported. History keeps the transcript.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#floor">Send a note</a>
+          <a class="btn btn-ghost" href="/status">Published status</a>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><strong>Live</strong><span>one socket</span></div>
+          <div class="stat"><strong>Desk</strong><span>moderation queue</span></div>
+          <div class="stat"><strong>Tape</strong><span>JSON transcript</span></div>
+        </div>
+      </div>
+      <div class="panel" id="floor">
+        <p class="live"><i></i> Floor channel</p>
+        <div id="log" aria-live="polite"></div>
+        <form id="f" class="composer">
+          <label class="muted" for="m">Message the floor</label>
+          <div class="composer-row">
+            <input id="m" name="m" autocomplete="off" placeholder="Status, handoff, or a page">
+            <button class="btn btn-primary" type="submit">Send</button>
+          </div>
+        </form>
+        <p class="muted"><a href="/report">report abuse</a> · <a href="/mod">mod bot</a></p>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-inner">
+      <h2>Sample tape</h2>
+      <p class="sub">A morning from the Lower Wharf desk, written here so you can see the columns. The live channel above is the real one.</p>
+      <div class="card">
+        <table class="table blotter">
+          <thead>
+            <tr><th scope="col">Time</th><th scope="col">Desk</th><th scope="col">Note</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>07:41</td><td>Power</td><td>Westline handoff is with the night book.</td></tr>
+            <tr><td>08:05</td><td>Rates</td><td>Candle &amp; Rye asked for a quieter cross.</td></tr>
+            <tr><td>08:22</td><td>Mod</td><td>One report is waiting on the desk.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <section class="section" style="padding-top:0">
+    <div class="section-inner">
+      <h2>Floor, then desk</h2>
+      <div class="grid-3">
+        <article class="card feature">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          <h3>Say it once</h3>
+          <p>The channel broadcasts every note to whoever is connected. You do not refresh to catch up.</p>
+        </article>
+        <article class="card feature">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <h3>Hand it to the desk</h3>
+          <p>Report abuse when a note should not stay on the floor. The mod bot opens that queue.</p>
+        </article>
+        <article class="card feature">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+          <h3>Read it back</h3>
+          <p><a href="/history">History</a> is the transcript as JSON, in the order the floor heard it.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand" href="/"><span class="brand-mark">Po</span> Signalwatch</a>
+      <p>The operations channel for desks that cannot miss a line.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <a href="/product">Overview</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/customers">Desks</a>
+      <a href="/status">Status</a>
+    </div>
+    <div>
+      <h4>Floor</h4>
+      <a href="/#floor">Live channel</a>
+      <a href="/report">Report abuse</a>
+      <a href="/mod">Mod bot</a>
+      <a href="/docs">Docs</a>
+    </div>
+  </div>
+  <p class="foot-note">© 2026 Signalwatch.</p>
+</footer>
+<script>
+const log=document.getElementById('log');
+const ws=new WebSocket((location.protocol==='https:'?'wss':'ws')+'://'+location.host+'/ws');
+ws.onmessage=e=>{const d=document.createElement('div'); d.innerHTML=e.data; log.appendChild(d);};
+document.getElementById('f').onsubmit=e=>{e.preventDefault(); ws.send(document.getElementById('m').value);};
+</script>
+<script src="/assets/chrome.js"></script>
+<script src="/assets/app.js"></script>
+</body>
+</html>

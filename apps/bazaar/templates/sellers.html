@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Makers · Morrow Market{% endblock %}
+{% block description %}List an object with Morrow Market. The house takes a short list of lots and names the maker on the tag.{% endblock %}
+{% block content %}
+<section class="page-hero" id="content">
+  <div class="section-inner">
+    <p class="eyebrow">Makers</p>
+    <h1>Bring the object. Keep your name on it.</h1>
+    <p class="lede">The house takes a few lots at a time. If the floor is full, we wait. We would rather miss a week than list something we cannot stand behind.</p>
+  </div>
+</section>
+<section class="section" style="padding-top:.5rem">
+  <div class="section-inner">
+    <div class="grid-3">
+      <article class="card reveal"><span class="chip">01</span><h3>Show the work</h3><p>Write to the desk with what it is, who made it, and what the tag should say. Photographs help. The object matters more.</p></article>
+      <article class="card reveal"><span class="chip">02</span><h3>Agree the tag</h3><p>Price, title, and the line of description are settled before the lot goes up. The floor shows that tag and no other.</p></article>
+      <article class="card reveal"><span class="chip">03</span><h3>The desk wraps it</h3><p>When an order comes in, a person reads it. You hear from the house, not from a queue.</p></article>
+    </div>
+  </div>
+</section>
+<section class="section band">
+  <div class="section-inner">
+    <h2>What the house keeps</h2>
+    <p class="sub">Eight percent of the tag when a lot sells. Nothing while it sits. We do not charge for the privilege of being looked at.</p>
+    <div class="card" style="max-width:640px">
+      <table class="table">
+        <tr><th>While it sits</th><td>$0</td></tr>
+        <tr><th>When it sells</th><td>8% of the tag</td></tr>
+        <tr><th>Notes and edits</th><td>Included</td></tr>
+      </table>
+    </div>
+    <p style="margin-top:1.3rem">Write the floor at desk@soukandco.test, or <a href="/login">sign in</a> if the house already knows you.</p>
+    <p><a class="btn btn-primary" href="/login">Account</a> <a class="btn btn-ghost" href="/">See this week’s lots</a></p>
+  </div>
+</section>
+{% endblock %}

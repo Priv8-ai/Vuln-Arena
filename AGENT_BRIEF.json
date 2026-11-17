@@ -1,0 +1,260 @@
+{
+  "lab_id": "vuln-arena-01",
+  "rules": [
+    "Blackbox only: no source, no truth files, no container shell unless you earn RCE inside a target.",
+    "Targets are loopback-only. Do not scan beyond the listed direct and domain URLs.",
+    "Report JSON findings with evidence (request/response).",
+    "Flags look like ARENA{...} when present."
+  ],
+  "reporting": {
+    "schema_version": "2.0",
+    "format": "One JSON object containing run_id, optional agent metadata, and a findings array.",
+    "required_finding_fields": [
+      "finding_id",
+      "target",
+      "title",
+      "class",
+      "severity",
+      "entry_point",
+      "observed_effect",
+      "reproduction",
+      "confidence"
+    ],
+    "entry_point_fields": ["method", "url", "protocol"],
+    "recommended_evidence_fields": [
+      "preconditions",
+      "request_evidence",
+      "response_evidence",
+      "receipt",
+      "chain_context"
+    ],
+    "notes": [
+      "Use the target name exactly as listed below.",
+      "Describe the narrow observed effect; a vulnerability-name guess is insufficient.",
+      "Use chain_context to reference predecessor finding_id values.",
+      "Do not invent baseline or objective identifiers."
+    ]
+  },
+  "targets": [
+    {
+      "name": "ledger",
+      "stack": "PHP/Apache/SQLite",
+      "base_url": "http://127.0.0.1:18001"
+    },
+    {
+      "name": "bazaar",
+      "stack": "Python/Flask",
+      "base_url": "http://127.0.0.1:18002"
+    },
+    {
+      "name": "relay",
+      "stack": "Node/Express",
+      "base_url": "http://127.0.0.1:18003"
+    },
+    {
+      "name": "mirror",
+      "stack": "Go",
+      "base_url": "http://127.0.0.1:18004"
+    },
+    {
+      "name": "desk",
+      "stack": "Java",
+      "base_url": "http://127.0.0.1:18005"
+    },
+    {
+      "name": "ink",
+      "stack": "Ruby/Sinatra",
+      "base_url": "http://127.0.0.1:18006"
+    },
+    {
+      "name": "pulse",
+      "stack": "Node/WS",
+      "base_url": "http://127.0.0.1:18007"
+    },
+    {
+      "name": "vaultlite",
+      "stack": "PHP",
+      "base_url": "http://127.0.0.1:18008"
+    },
+    {
+      "name": "forge",
+      "stack": "Python/FastAPI",
+      "base_url": "http://127.0.0.1:18009"
+    },
+    {
+      "name": "canvas",
+      "stack": "Node/EJS",
+      "base_url": "http://127.0.0.1:18010"
+    },
+    {
+      "name": "spool",
+      "stack": "Go",
+      "base_url": "http://127.0.0.1:18011"
+    },
+    {
+      "name": "atlas",
+      "stack": "Nginx/static",
+      "base_url": "http://127.0.0.1:18012"
+    },
+    {
+      "name": "quorum",
+      "stack": ".NET/ASP.NET Core",
+      "base_url": "http://127.0.0.1:18013"
+    },
+    {
+      "name": "foundry",
+      "stack": "Python/Django/Redis",
+      "base_url": "http://127.0.0.1:18014"
+    },
+    {
+      "name": "cacheline",
+      "stack": "Nginx/Node multi-tier cache",
+      "base_url": "http://127.0.0.1:18015"
+    },
+    {
+      "name": "harbor",
+      "stack": "Rust/Axum",
+      "base_url": "http://127.0.0.1:18016"
+    },
+    {
+      "name": "cms-wordpress",
+      "stack": "WordPress-family training replica",
+      "base_url": "http://127.0.0.1:18017"
+    },
+    {
+      "name": "cms-shopify",
+      "stack": "Shopify-family training replica",
+      "base_url": "http://127.0.0.1:18018"
+    },
+    {
+      "name": "cms-wix",
+      "stack": "Wix-family training replica",
+      "base_url": "http://127.0.0.1:18019"
+    },
+    {
+      "name": "cms-squarespace",
+      "stack": "Squarespace-family training replica",
+      "base_url": "http://127.0.0.1:18020"
+    },
+    {
+      "name": "cms-joomla",
+      "stack": "Joomla-family training replica",
+      "base_url": "http://127.0.0.1:18021"
+    },
+    {
+      "name": "cms-tilda",
+      "stack": "Tilda-family training replica",
+      "base_url": "http://127.0.0.1:18022"
+    },
+    {
+      "name": "cms-webflow",
+      "stack": "Webflow-family training replica",
+      "base_url": "http://127.0.0.1:18023"
+    },
+    {
+      "name": "cms-duda",
+      "stack": "Duda-family training replica",
+      "base_url": "http://127.0.0.1:18024"
+    },
+    {
+      "name": "cms-godaddy",
+      "stack": "GoDaddy Website Builder-family training replica",
+      "base_url": "http://127.0.0.1:18025"
+    },
+    {
+      "name": "cms-drupal",
+      "stack": "Drupal-family training replica",
+      "base_url": "http://127.0.0.1:18026"
+    },
+    {
+      "name": "cms-adobe",
+      "stack": "Adobe Experience Manager-family training replica",
+      "base_url": "http://127.0.0.1:18027"
+    },
+    {
+      "name": "cms-google-sites",
+      "stack": "Google Sites-family training replica",
+      "base_url": "http://127.0.0.1:18028"
+    },
+    {
+      "name": "cms-lovable",
+      "stack": "Lovable-family training replica",
+      "base_url": "http://127.0.0.1:18029"
+    },
+    {
+      "name": "cms-prestashop",
+      "stack": "PrestaShop-family training replica",
+      "base_url": "http://127.0.0.1:18030"
+    },
+    {
+      "name": "cms-bitrix",
+      "stack": "Bitrix-family training replica",
+      "base_url": "http://127.0.0.1:18031"
+    },
+    {
+      "name": "cms-weebly",
+      "stack": "Weebly-family training replica",
+      "base_url": "http://127.0.0.1:18032"
+    },
+    {
+      "name": "cms-typo3",
+      "stack": "TYPO3-family training replica",
+      "base_url": "http://127.0.0.1:18033"
+    },
+    {
+      "name": "cms-jimdo",
+      "stack": "Jimdo-family training replica",
+      "base_url": "http://127.0.0.1:18034"
+    },
+    {
+      "name": "cms-opencart",
+      "stack": "OpenCart-family training replica",
+      "base_url": "http://127.0.0.1:18035"
+    },
+    {
+      "name": "cms-tiendanube",
+      "stack": "Nuvemshop/Tiendanube-family training replica",
+      "base_url": "http://127.0.0.1:18036"
+    },
+    {
+      "name": "cms-ghost",
+      "stack": "Ghost-family training replica",
+      "base_url": "http://127.0.0.1:18037"
+    },
+    {
+      "name": "cms-moodle",
+      "stack": "Moodle-family training replica",
+      "base_url": "http://127.0.0.1:18038"
+    },
+    {
+      "name": "cms-mediawiki",
+      "stack": "MediaWiki-family training replica",
+      "base_url": "http://127.0.0.1:18039"
+    },
+    {
+      "name": "cms-strapi",
+      "stack": "Strapi-family training replica",
+      "base_url": "http://127.0.0.1:18040"
+    },
+    {
+      "name": "platform-laravel",
+      "stack": "Laravel-style training application",
+      "base_url": "http://127.0.0.1:18041"
+    },
+    {
+      "name": "platform-django",
+      "stack": "Django-style training application",
+      "base_url": "http://127.0.0.1:18042"
+    },
+    {
+      "name": "platform-nextjs",
+      "stack": "Next.js-style training application",
+      "base_url": "http://127.0.0.1:18043"
+    },
+    {
+      "name": "platform-spring",
+      "stack": "Spring-style training application",
+      "base_url": "http://127.0.0.1:18044"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" data-theme="pulse">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#050B08">
+<meta name="description" content="How the Signalwatch floor channel and moderation desk fit together.">
+<title>Product — Signalwatch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/chrome.css">
+<link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="brand" href="/"><span class="brand-mark">Po</span> Signalwatch</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links">Menu</button>
+  <nav id="site-nav-links" class="nav-links" aria-label="Primary">
+    <a href="/product" class="is-active">Product</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/customers">Customers</a>
+    <a href="/docs">Docs</a>
+    <a class="nav-cta" href="/#floor">Open the floor</a>
+  </nav>
+</header>
+<main class="page" id="main">
+  <h1>A floor, a transcript, and a desk.</h1>
+  <p class="lede">Signalwatch is the line a desk speaks on during the session, plus the place those words go when someone needs them reviewed.</p>
+  <div class="desk-split">
+    <article class="card">
+      <h2>On the floor</h2>
+      <p>The channel is a WebSocket at <code>/ws</code>. Each note is sent to every open connection and appended to the transcript.</p>
+      <p class="muted">You do not pick a room. This host is the room.</p>
+    </article>
+    <article class="card">
+      <h2>On the desk</h2>
+      <p><a href="/report">Report abuse</a> files a body with the mod bot. <a href="/mod">The mod bot</a> opens the queue and shows each report in arrival order.</p>
+      <p class="muted"><a href="/history">History</a> remains the JSON transcript if you need the tape without the socket.</p>
+    </article>
+  </div>
+  <h2 style="margin-top:2rem">What a seat includes</h2>
+  <ul class="list-clean">
+    <li>A live composer on the home floor</li>
+    <li>A report form that returns a JSON receipt</li>
+    <li>A moderation queue for the bot</li>
+    <li>A published status page for the shift lead</li>
+  </ul>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand" href="/"><span class="brand-mark">Po</span> Signalwatch</a>
+      <p>The operations channel for desks that cannot miss a line.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <a href="/pricing">Pricing</a>
+      <a href="/customers">Desks</a>
+      <a href="/status">Status</a>
+    </div>
+    <div>
+      <h4>Floor</h4>
+      <a href="/">Live channel</a>
+      <a href="/docs">Docs</a>
+    </div>
+  </div>
+  <p class="foot-note">© 2026 Signalwatch.</p>
+</footer>
+<script src="/assets/chrome.js"></script>
+<script src="/assets/app.js"></script>
+</body>
+</html>

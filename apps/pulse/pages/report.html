@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" data-theme="pulse">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#050B08">
+<meta name="description" content="File an abuse report for the Signalwatch moderation desk.">
+<title>Report abuse — Signalwatch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/chrome.css">
+<link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="brand" href="/"><span class="brand-mark">Po</span> Signalwatch</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links">Menu</button>
+  <nav id="site-nav-links" class="nav-links" aria-label="Primary">
+    <a href="/product">Product</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/customers">Customers</a>
+    <a href="/docs">Docs</a>
+    <a class="nav-cta" href="/mod">Mod bot</a>
+  </nav>
+</header>
+<main class="page" id="main">
+  <h1>Report abuse</h1>
+  <p class="lede">Write what the desk should see. The form posts to this page and returns a JSON receipt. The <a href="/mod">mod bot</a> opens the queue.</p>
+  <form class="form-stack card" method=post>
+    <label for="body">What should the desk see</label>
+    <textarea id="body" name=body rows="6"></textarea>
+    <button class="btn btn-primary" type="submit">report</button>
+  </form>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand" href="/"><span class="brand-mark">Po</span> Signalwatch</a>
+      <p>The operations channel for desks that cannot miss a line.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <a href="/product">Overview</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/status">Status</a>
+    </div>
+    <div>
+      <h4>Floor</h4>
+      <a href="/">Live channel</a>
+      <a href="/mod">Mod bot</a>
+      <a href="/docs">Docs</a>
+    </div>
+  </div>
+  <p class="foot-note">© 2026 Signalwatch.</p>
+</footer>
+<script src="/assets/chrome.js"></script>
+<script src="/assets/app.js"></script>
+</body>
+</html>

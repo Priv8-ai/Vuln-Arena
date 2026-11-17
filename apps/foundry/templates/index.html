@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" data-theme="foundry">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101411">
+  <link rel="icon" href="data:,">
+  <meta name="description" content="Kilnworks is the build room for small engineering teams.">
+  <title>Kilnworks — builds with a clear handoff</title>
+  <link rel="stylesheet" href="/assets/chrome.css">
+  <link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="brand" href="/"><span class="brand-mark">K</span> Kilnworks</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links">Menu</button>
+  <nav id="site-nav-links" class="nav-links"><a href="#builds">Builds</a><a href="#runners">Runners</a><a href="#integrations">Integrations</a><a href="/logs">Logs</a><a class="nav-cta" href="#new-build">New build</a></nav>
+</header>
+<main id="main">
+  <section class="hero kiln">
+    <div class="hero-grid split">
+      <div><p class="eyebrow">Continuous delivery</p><h1>A build room with the door left open for the team.</h1><p class="lede">Kilnworks queues the commit, gives it a clean runner, and keeps the artifact beside the decision that shipped it.</p><div class="hero-actions"><a class="btn btn-primary" href="#builds">Open the build room</a><a class="btn btn-ghost" href="#integrations">Connect a webhook</a></div><div class="stat-row"><div class="stat"><strong>3m 41s</strong><span>median build</span></div><div class="stat"><strong>94%</strong><span>cache hit rate</span></div><div class="stat"><strong>8</strong><span>available runners</span></div></div></div>
+      <div class="hero-visual terminal"><div class="term-top"><span></span><span></span><span></span><b>build 7202</b></div><pre>$ checkout release/11
++ resolved 312 packages
++ restored cache northstar-2
++ tests: 148 passed
+<em>→ packaging artifact</em>
+<i class="cursor">█</i></pre></div>
+    </div>
+  </section>
+  <section class="section band" id="builds"><div class="section-inner"><p class="eyebrow">Build room</p><h2>Recent work</h2><p class="sub">Live build records from the same endpoint used by runner clients.</p><div class="build-table"><div class="build-row head"><span>Build</span><span>Repository</span><span>Ref</span><span>State</span><span>Time</span></div>{% for b in builds %}<a class="build-row" href="/api/builds/{{ b.id }}"><span>#{{ b.id }}</span><strong>{{ b.repo }}</strong><span>{{ b.ref }}</span><span class="status {{ b.state }}">{{ b.state }}</span><span>{{ b.minutes }}m</span></a>{% endfor %}</div></div></section>
+  <section class="section" id="runners"><div class="section-inner"><h2>Runners that look like machines, not mystery.</h2><div class="grid-3"><article class="card feature"><h3>Clean workspace</h3><p>Every job receives an empty directory and a run-scoped artifact path.</p></article><article class="card feature"><h3>Visible queue</h3><p>Teams can see which build is waiting and which runner will take it.</p></article><article class="card feature"><h3>Reviewable logs</h3><p>The release reviewer reads the same log the runner produced.</p></article></div></div></section>
+  <section class="section band" id="integrations"><div class="section-inner pair"><div><p class="eyebrow">Webhook desk</p><h2>Check a destination before enabling it.</h2><p class="sub">The build room fetches the URL and returns the response for inspection.</p></div><form class="card form-stack" action="/api/webhooks/test" method="get"><label for="url">Destination</label><input id="url" name="url" value="http://example.test/health"><button class="btn btn-primary">Test destination</button></form></div></section>
+  <section class="section" id="new-build"><div class="section-inner pair"><div><h2>Name the next build.</h2><p class="sub">Preview the label the runner will put on the artifact.</p></div><form class="card form-stack" action="/api/render"><label for="name">Build label</label><input id="name" name="name" value="release-11"><button class="btn btn-primary">Preview</button></form></div></section>
+</main>
+<footer class="site-footer"><div class="footer-inner"><div><a class="brand" href="/"><span class="brand-mark">K</span> Kilnworks</a><p>Build infrastructure for teams that still read the logs.</p></div><div><h4>Product</h4><a href="#builds">Build room</a><a href="#runners">Runners</a></div><div><h4>Operations</h4><a href="/health">Health</a><a href="/logs">Build logs</a></div></div></footer>
+<script src="/assets/chrome.js"></script>
+</body></html>

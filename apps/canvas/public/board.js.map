@@ -1,0 +1,1 @@
+{"version":3,"sources":["board.js"],"sourcesContent":["/* FLAG ARENA{canvas_sourcemap} */\nconst INTERNAL='/pick?file=secret.txt';"],"mappings":"AAAA"}

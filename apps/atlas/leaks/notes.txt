@@ -1,0 +1,1 @@
+cross-app: forge internal token path /internal/token on forge service

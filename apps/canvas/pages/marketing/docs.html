@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" data-theme="canvas">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F2F7F5">
+<meta name="description" content="Kiteboard reference for settings, render, file pick, and import.">
+<title>Docs — Kiteboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/chrome.css">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="brand" href="/"><span class="brand-mark">Sc</span> Kiteboard</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links">Menu</button>
+  <nav id="site-nav-links" class="nav-links" aria-label="Primary">
+    <a href="/product">Product</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/customers">Studios</a>
+    <a href="/docs" class="is-active">Docs</a>
+    <a class="nav-cta" href="/#board">Open the board</a>
+  </nav>
+</header>
+<main class="page" id="main">
+  <h1>Board reference</h1>
+  <p class="lede">The home board loads the client script and its map, then calls these routes.</p>
+  <ul class="list-clean mono">
+    <li>POST /api/settings</li>
+    <li>GET /render?tpl=</li>
+    <li>GET /pick?file=</li>
+    <li>POST /api/import</li>
+  </ul>
+  <h2>Settings</h2>
+  <p>POST /api/settings with a JSON object. The title you store is the heading on the home board.</p>
+  <pre class="sample"><code>curl -s -X POST "$ORIGIN/api/settings" \
+  -H "content-type: application/json" \
+  -d '{"title":"Studio wall"}'</code></pre>
+  <h2>Render</h2>
+  <p><a href="/render?tpl=Hello">GET /render?tpl=Hello</a> renders the <code>tpl</code> string with the current config in scope. The home form submits that query.</p>
+  <h2>Files</h2>
+  <p><a href="/pick?file=readme.txt">GET /pick?file=readme.txt</a> returns a file stored with the board. The default name, when you omit the query, is <code>readme.txt</code>.</p>
+  <h2>Import</h2>
+  <p>POST /api/import with a JSON body when a producer delivers the deck that way.</p>
+  <h2>Scripts</h2>
+  <p>The board shell includes <code>/static/board.js</code> and <code>/static/board.js.map</code>.</p>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand" href="/"><span class="brand-mark">Sc</span> Kiteboard</a>
+      <p>Boards for studios that still work in the same room.</p>
+    </div>
+    <div>
+      <h4>Studio</h4>
+      <a href="/product">Product</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/workflow">Workflow</a>
+    </div>
+    <div>
+      <h4>Board</h4>
+      <a href="/">Open board</a>
+      <a href="/render?tpl=Hello">Template preview</a>
+    </div>
+  </div>
+  <p class="foot-note">© 2026 Kiteboard.</p>
+</footer>
+<script src="/static/chrome.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

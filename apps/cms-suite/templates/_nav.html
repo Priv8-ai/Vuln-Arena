@@ -1,0 +1,10 @@
+<header class="nav profile-nav">
+  <a class="brand" href="/" aria-label="{{ profile.brand }} home"><span>{{ experience.icon }}</span><b>{{ profile.brand }}</b></a>
+  <button class="menu" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+  <nav id="nav-links" aria-label="Primary">
+    <a href="/library">{{ experience.primary }}</a>
+    <a href="/workspace">{{ experience.secondary }}</a>
+    <a href="/insights">{{ experience.tertiary }}</a>
+    <a href="{{ profile.admin_path }}">Workspace</a>
+  </nav>
+</header>

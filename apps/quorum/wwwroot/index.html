@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" data-theme="quorum">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Quorum is the approval room for finance, legal, and operations teams.">
+  <meta name="theme-color" content="#f5f1ea">
+  <link rel="icon" href="data:,">
+  <title>Quorum — approvals with a paper trail</title>
+  <link rel="stylesheet" href="/assets/chrome.css">
+  <link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="brand" href="/"><span class="brand-mark">Q</span> Quorum</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links">Menu</button>
+  <nav class="nav-links" id="site-nav-links" aria-label="Primary">
+    <a href="#queue">Approval queue</a><a href="#controls">Controls</a><a href="#integrations">Integrations</a><a href="#audit">Audit trail</a>
+    <a class="nav-cta" href="#queue">Open workspace</a>
+  </nav>
+</header>
+<main id="main">
+  <section class="hero">
+    <div class="hero-grid split">
+      <div>
+        <p class="eyebrow">Approval operations</p>
+        <h1>Every consequential decision, in one room.</h1>
+        <p class="lede">Quorum gives finance, legal, and operations a shared approval queue with clear thresholds, tenant boundaries, and a record that survives the meeting.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="#queue">Review pending work</a><a class="btn btn-ghost" href="#integrations">Test a webhook</a></div>
+        <div class="stat-row"><div class="stat"><strong>3</strong><span>active workspaces</span></div><div class="stat"><strong>2.4h</strong><span>median decision</span></div><div class="stat"><strong>99.8%</strong><span>audit coverage</span></div></div>
+      </div>
+      <div class="hero-visual decision-card" aria-hidden="true">
+        <div class="decision-top"><span class="chip">Awaiting decision</span><span>#1042</span></div>
+        <h2>Renew data-room access</h2><p>Northwind Practice · requested by Operations</p>
+        <dl><div><dt>Amount</dt><dd>$18,400</dd></div><div><dt>Threshold</dt><dd>1 of 2</dd></div><div><dt>Due</dt><dd>Friday, 16:00</dd></div></dl>
+        <div class="signatures"><i></i><i></i><span>One more reviewer required</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="section band" id="queue"><div class="section-inner">
+    <p class="eyebrow">Live queue</p><h2>Decisions waiting for a second set of eyes.</h2><p class="sub">This is the working surface, backed by the same API used by the benchmark.</p>
+    <div class="queue" id="approval-list" aria-live="polite"><p class="muted">Loading approvals…</p></div>
+  </div></section>
+  <section class="section" id="controls"><div class="section-inner"><h2>Controls people can explain.</h2><div class="grid-3">
+    <article class="card feature"><h3>Tenant rooms</h3><p>Each organization keeps its own requesters, approvers, and evidence.</p></article>
+    <article class="card feature"><h3>Thresholds</h3><p>High-value decisions can require two or more distinct reviewers.</p></article>
+    <article class="card feature"><h3>Exportable history</h3><p>Auditors get a readable packet instead of a screenshot collection.</p></article>
+  </div></div></section>
+  <section class="section band" id="integrations"><div class="section-inner integration-grid">
+    <div><p class="eyebrow">Integrations</p><h2>Test the destination before the first event leaves.</h2><p class="sub">Quorum fetches the URL and shows the response your workflow will receive.</p></div>
+    <form class="card form-stack" action="/api/webhooks/test" method="get"><label for="url">Webhook URL</label><input id="url" name="url" value="http://example.test/health"><button class="btn btn-primary" type="submit">Send test</button></form>
+  </div></section>
+  <section class="section" id="audit"><div class="section-inner"><h2>Built for the audit after the urgency.</h2><p class="sub">Every request keeps its tenant, requester, threshold, reviewers, and final state together.</p><a class="btn btn-ghost" href="/api/export?file=sample.txt">Download a sample export</a></div></section>
+</main>
+<footer class="site-footer"><div class="footer-inner"><div><a class="brand" href="/"><span class="brand-mark">Q</span> Quorum</a><p>Approval operations for teams with real thresholds.</p></div><div><h4>Workspace</h4><a href="/api/approvals">API queue</a><a href="/health">Service health</a></div><div><h4>Company</h4><a href="#controls">Controls</a><a href="#audit">Audit trail</a></div></div></footer>
+<script src="/assets/chrome.js"></script>
+<script src="/assets/app.js"></script>
+</body></html>

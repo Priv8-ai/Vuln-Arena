@@ -1,0 +1,22 @@
+<div class="workspace-card profile-visual visual-{{ experience.visual }}" aria-label="{{ experience.workspace_title }} preview">
+  <div class="workspace-top"><span class="status-dot"></span><b>{{ experience.workspace_title }}</b><small>Live</small></div>
+  {% if experience.visual == "commerce" %}
+  <div class="commerce-visual"><div class="order-summary"><small>Today</small><strong>{{ experience.metrics[0][0] }}</strong><span>{{ experience.metrics[0][1] }}</span></div><div class="product-mini-grid">{% for row in experience.rows %}<article><i></i><b>{{ row }}</b><small>Ready</small></article>{% endfor %}</div></div>
+  {% elif experience.visual == "builder" %}
+  <div class="builder-visual"><aside><button>+</button><i></i><i></i><i></i></aside><div class="artboard"><span></span><h2>{{ profile.brand }}</h2><p>{{ profile.tagline }}</p><div><i></i><i></i><i></i></div></div><div class="inspector"><small>Layout</small><i></i><i></i><small>Spacing</small><i></i></div></div>
+  {% elif experience.visual == "portfolio" %}
+  <div class="portfolio-visual"><article class="portfolio-lead"><span>Featured</span><h2>{{ experience.rows[0] }}</h2><p>{{ profile.description }}</p></article><div class="portfolio-thumbs"><i></i><i></i><i></i></div></div>
+  {% elif experience.visual == "portal" %}
+  <div class="portal-visual"><div class="portal-search">Search {{ experience.primary|lower }}<span>⌕</span></div>{% for row in experience.rows %}<article><span>{{ loop.index }}</span><div><b>{{ row }}</b><small>Updated recently</small></div><i>→</i></article>{% endfor %}</div>
+  {% elif experience.visual == "learning" %}
+  <div class="learning-visual"><div class="course-ring"><strong>78%</strong><small>course pulse</small></div><div class="lesson-list">{% for row in experience.rows %}<article><span>{{ loop.index }}</span><div><b>{{ row }}</b><i style="width:{{ 40 + loop.index * 16 }}%"></i></div></article>{% endfor %}</div></div>
+  {% elif experience.visual == "knowledge" %}
+  <div class="knowledge-visual"><aside><b>Contents</b>{% for stage in experience.stages %}<span>{{ stage }}</span>{% endfor %}</aside><article><small>Reference / Updated today</small><h2>{{ experience.rows[0] }}</h2><p>{{ experience.summary }}</p><p>Every change keeps its discussion and revision history attached.</p></article></div>
+  {% elif experience.visual == "framework" %}
+  <div class="framework-visual"><div class="terminal"><small>production / {{ profile.id }}</small><code><i>GET</i> /api/profile <b>200</b></code><code><i>POST</i> /api/publish-credit <b>queued</b></code><code><i>GET</i> /health <b>healthy</b></code></div><div class="queue-mini">{% for row in experience.rows %}<span><i></i>{{ row }}</span>{% endfor %}</div></div>
+  {% elif experience.visual == "enterprise" %}
+  <div class="enterprise-visual"><div class="enterprise-chart"><span></span><span></span><span></span><span></span><span></span><span></span></div>{% for row in experience.rows %}<article><i>{{ loop.index }}</i><b>{{ row }}</b><small>{{ experience.stages[loop.index0] }}</small><span>•••</span></article>{% endfor %}</div>
+  {% else %}
+  <div class="edition-visual"><div class="edition-mast"><small>{{ experience.kicker }}</small><b>{{ profile.brand }}</b><span>{{ experience.metrics[2][0] }} {{ experience.metrics[2][1] }}</span></div><article><span>Lead story</span><h2>{{ experience.rows[0] }}</h2><p>{{ experience.summary }}</p></article><div class="edition-lines"><i></i><i></i><i></i></div></div>
+  {% endif %}
+</div>

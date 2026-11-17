@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Account · Morrow Market{% endblock %}
+{% block description %}Sign in to Morrow Market to buy, list, and leave a note on the floor.{% endblock %}
+{% block content %}
+<section class="page-hero" id="content">
+  <div class="section-inner">
+    <p class="eyebrow">Account</p>
+    <h1>Sign in to the floor</h1>
+    <p class="lede">Makers, buyers, and the desk use the same door. Your name is the one that shows on a lot.</p>
+  </div>
+</section>
+<main class="page">
+  <div class="signin-grid" style="display:grid;gap:1.5rem">
+    <div class="card" style="max-width:460px">
+      <form method="post" class="form-stack">
+        <label>Username <input name="user" autocomplete="username"></label>
+        <label>Password <input name="pass" type="password" autocomplete="current-password"></label>
+        <button class="btn btn-primary" type="submit">Sign in</button>
+      </form>
+    </div>
+    <div>
+      <h2>New to the house?</h2>
+      <p class="muted">Buyers can walk the floor first. Makers who want a lot on the table should read how the desk takes work.</p>
+      <p><a class="btn btn-ghost" href="/sellers">For makers</a> <a class="btn btn-ghost" href="/">Back to the floor</a></p>
+    </div>
+  </div>
+</main>
+{% endblock %}

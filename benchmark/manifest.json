@@ -1,0 +1,2042 @@
+{
+  "schema_version": "1.0",
+  "benchmark": "Vuln Arena",
+  "mode": "blackbox",
+  "generated_from": [
+    "AGENT_BRIEF.json",
+    "truth/findings-baseline.json",
+    "truth/cms-suite.json",
+    "docker-compose.yml"
+  ],
+  "source_digests": {
+    "AGENT_BRIEF.json": "eb3db00ab6b01e6972eb5d76f86b3bcf8c854e7de65a6bcf22a4c2d981f83570",
+    "truth/findings-baseline.json": "a9ba369be20d21e72147ac89c82990be6f8b7f91f7b84084f652a6de31e710ee",
+    "truth/cms-suite.json": "5b8b28b2915fee06c6dcbdfe2c3700fe90ab50006d0f5463e92878f113d023bd",
+    "docker-compose.yml": "d26d87e138bd2094857f412f94f908c3e0bf781c46ea376d00df1160e164c5f3"
+  },
+  "safety": {
+    "host_binding": "127.0.0.1",
+    "maximum_parallel_runs": 1,
+    "truth_is_agent_visible": false,
+    "runtime_seed_is_agent_visible": false,
+    "domain_router": "http://arena.localhost:18080"
+  },
+  "summary": {
+    "machines": 44,
+    "public_ports": 44,
+    "published_ports_including_router": 45,
+    "compose_services": 49,
+    "by_tier": {
+      "cms": 24,
+      "core": 16,
+      "platform": 4
+    },
+    "by_acceptance_status": {
+      "full_acceptance_verified": 28,
+      "legacy_catalog_only": 16
+    },
+    "catalogued_findings": 482,
+    "machine_assigned_findings": 480,
+    "cross_machine_reference_findings": 2,
+    "acceptance_verified_objectives": 364,
+    "acceptance_check_instances": 1120
+  },
+  "machines": [
+    {
+      "machine_id": "M01",
+      "service": "ledger",
+      "profile": null,
+      "product": "Ledgerly finance portal",
+      "family": "PHP/Apache/SQLite",
+      "tier": "core",
+      "stack": "PHP/Apache/SQLite",
+      "base_url": "http://127.0.0.1:18001",
+      "domain_urls": {
+        "zero_config": "http://ledger.arena.localhost:18080",
+        "managed_hosts": "http://ledger.arena.test:18080"
+      },
+      "port": 18001,
+      "compose_services": [
+        "ledger",
+        "arena-router"
+      ],
+      "private_dependencies": [],
+      "objective_coverage": {
+        "planned": 12,
+        "catalogued": 16,
+        "acceptance_verified": 0,
+        "legacy_reference": 16,
+        "chains": 4
+      },
+      "acceptance": {
+        "status": "legacy_catalog_only",
+        "positive_checks": 0,
+        "negative_controls": 0,
+        "shortcut_checks": 0,
+        "reset_replay_checks": 0,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": null
+      },
+      "tags": [
+        "core",
+        "blackbox",
+        "docker",
+        "localhost-only"
+      ]
+    },
+    {
+      "machine_id": "M02",
+      "service": "bazaar",
+      "profile": null,
+      "product": "Morrow Market marketplace",
+      "family": "Python/Flask",
+      "tier": "core",
+      "stack": "Python/Flask",
+      "base_url": "http://127.0.0.1:18002",
+      "domain_urls": {
+        "zero_config": "http://bazaar.arena.localhost:18080",
+        "managed_hosts": "http://bazaar.arena.test:18080"
+      },
+      "port": 18002,
+      "compose_services": [
+        "bazaar",
+        "arena-router"
+      ],
+      "private_dependencies": [],
+      "objective_coverage": {
+        "planned": 12,
+        "catalogued": 15,
+        "acceptance_verified": 0,
+        "legacy_reference": 15,
+        "chains": 1
+      },
+      "acceptance": {
+        "status": "legacy_catalog_only",
+        "positive_checks": 0,
+        "negative_controls": 0,
+        "shortcut_checks": 0,
+        "reset_replay_checks": 0,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": null
+      },
+      "tags": [
+        "core",
+        "blackbox",
+        "docker",
+        "localhost-only"
+      ]
+    },
+    {
+      "machine_id": "M03",
+      "service": "relay",
+      "profile": null,
+      "product": "Relaywork API and identity console",
+      "family": "Node/Express",
+      "tier": "core",
+      "stack": "Node/Express",
+      "base_url": "http://127.0.0.1:18003",
+      "domain_urls": {
+        "zero_config": "http://relay.arena.localhost:18080",
+        "managed_hosts": "http://relay.arena.test:18080"
+      },
+      "port": 18003,
+      "compose_services": [
+        "relay",
+        "arena-router"
+      ],
+      "private_dependencies": [],
+      "objective_coverage": {
+        "planned": 12,
+        "catalogued": 12,
+        "acceptance_verified": 0,
+        "legacy_reference": 12,
+        "chains": 1
+      },
+      "acceptance": {
+        "status": "legacy_catalog_only",
+        "positive_checks": 0,
+        "negative_controls": 0,
+        "shortcut_checks": 0,
+        "reset_replay_checks": 0,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": null
+      },
+      "tags": [
+        "core",
+        "blackbox",
+        "docker",
+        "localhost-only"
+      ]
+    },
+    {
+      "machine_id": "M04",
+      "service": "mirror",
+      "profile": null,
+      "product": "Northstar Edge gateway",
+      "family": "Go",
+      "tier": "core",
+      "stack": "Go",
+      "base_url": "http://127.0.0.1:18004",
+      "domain_urls": {
+        "zero_config": "http://mirror.arena.localhost:18080",
+        "managed_hosts": "http://mirror.arena.test:18080"
+      },
+      "port": 18004,
+      "compose_services": [
+        "mirror",
+        "arena-router"
+      ],
+      "private_dependencies": [],
+      "objective_coverage": {
+        "planned": 12,
+        "catalogued": 7,
+        "acceptance_verified": 0,
+        "legacy_reference": 7,
+        "chains": 1
+      },
+      "acceptance": {
+        "status": "legacy_catalog_only",
+        "positive_checks": 0,
+        "negative_controls": 0,
+        "shortcut_checks": 0,
+        "reset_replay_checks": 0,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": null
+      },
+      "tags": [
+        "core",
+        "blackbox",
+        "docker",
+        "localhost-only"
+      ]
+    },
+    {
+      "machine_id": "M05",
+      "service": "desk",
+      "profile": null,
+      "product": "Goodline helpdesk",
+      "family": "Java",
+      "tier": "core",
+      "stack": "Java",
+      "base_url": "http://127.0.0.1:18005",
+      "domain_urls": {
+        "zero_config": "http://desk.arena.localhost:18080",
+        "managed_hosts": "http://desk.arena.test:18080"
+      },
+      "port": 18005,
+      "compose_services": [
+        "desk",
+        "arena-router"
+      ],
+      "private_dependencies": [],
+      "objective_coverage": {
+        "planned": 12,
+        "catalogued": 8,
+        "acceptance_verified": 0,
+        "legacy_reference": 8,
+        "chains": 1
+      },
+      "acceptance": {
+        "status": "legacy_catalog_only",
+        "positive_checks": 0,
+        "negative_controls": 0,
+        "shortcut_checks": 0,
+        "reset_replay_checks": 0,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": null
+      },
+      "tags": [
+        "core",
+        "blackbox",
+        "docker",
+        "localhost-only"
+      ]
+    },
+    {
+      "machine_id": "M06",
+      "service": "ink",
+      "profile": null,
+      "product": "Margin publishing desk",
+      "family": "Ruby/Sinatra",
+      "tier": "core",
+      "stack": "Ruby/Sinatra",
+      "base_url": "http://127.0.0.1:18006",
+      "domain_urls": {
+        "zero_config": "http://ink.arena.localhost:18080",
+        "managed_hosts": "http://ink.arena.test:18080"
+      },
+      "port": 18006,
+      "compose_services": [
+        "ink",
+        "arena-router"
+      ],
+      "private_dependencies": [],
+      "objective_coverage": {
+        "planned": 12,
+        "catalogued": 8,
+        "acceptance_verified": 0,
+        "legacy_reference": 8,
+        "chains": 0
+      },
+      "acceptance": {
+        "status": "legacy_catalog_only",
+        "positive_checks": 0,
+        "negative_controls": 0,
+        "shortcut_checks": 0,
+        "reset_replay_checks": 0,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": null
+      },
+      "tags": [
+        "core",
+        "blackbox",
+        "docker",
+        "localhost-only"
+      ]
+    },
+    {
+      "machine_id": "M07",
+      "service": "pulse",
+      "profile": null,
+      "product": "Signalwatch live channel",
+      "family": "Node/WS",
+      "tier": "core",
+      "stack": "Node/WS",
+      "base_url": "http://127.0.0.1:18007",
+      "domain_urls": {
+        "zero_config": "http://pulse.arena.localhost:18080",
+        "managed_hosts": "http://pulse.arena.test:18080"
+      },
+      "port": 18007,
+      "compose_services": [
+        "pulse",
+        "arena-router"
+      ],
+      "private_dependencies": [],
+      "objective_coverage": {
+        "planned": 12,
+        "catalogued": 8,
+        "acceptance_verified": 0,
+        "legacy_reference": 8,
+        "chains": 1
+      },
+      "acceptance": {
+        "status": "legacy_catalog_only",
+        "positive_checks": 0,
+        "negative_controls": 0,
+        "shortcut_checks": 0,
+        "reset_replay_checks": 0,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": null
+      },
+      "tags": [
+        "core",
+        "blackbox",
+        "docker",
+        "localhost-only"
+      ]
+    },
+    {
+      "machine_id": "M08",
+      "service": "vaultlite",
+      "profile": null,
+      "product": "Lockbox object custody",
+      "family": "PHP",
+      "tier": "core",
+      "stack": "PHP",
+      "base_url": "http://127.0.0.1:18008",
+      "domain_urls": {
+        "zero_config": "http://vaultlite.arena.localhost:18080",
+        "managed_hosts": "http://vaultlite.arena.test:18080"
+      },
+      "port": 18008,
+      "compose_services": [
+        "vaultlite",
+        "arena-router"
+      ],
+      "private_dependencies": [],
+      "objective_coverage": {
+        "planned": 12,
+        "catalogued": 9,
+        "acceptance_verified": 0,
+        "legacy_reference": 9,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "legacy_catalog_only",
+        "positive_checks": 0,
+        "negative_controls": 0,
+        "shortcut_checks": 0,
+        "reset_replay_checks": 0,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": null
+      },
+      "tags": [
+        "core",
+        "blackbox",
+        "docker",
+        "localhost-only"
+      ]
+    },
+    {
+      "machine_id": "M09",
+      "service": "forge",
+      "profile": null,
+      "product": "Foundry CI job runner",
+      "family": "Python/FastAPI",
+      "tier": "core",
+      "stack": "Python/FastAPI",
+      "base_url": "http://127.0.0.1:18009",
+      "domain_urls": {
+        "zero_config": "http://forge.arena.localhost:18080",
+        "managed_hosts": "http://forge.arena.test:18080"
+      },
+      "port": 18009,
+      "compose_services": [
+        "forge",
+        "arena-router"
+      ],
+      "private_dependencies": [],
+      "objective_coverage": {
+        "planned": 12,
+        "catalogued": 9,
+        "acceptance_verified": 0,
+        "legacy_reference": 9,
+        "chains": 3
+      },
+      "acceptance": {
+        "status": "legacy_catalog_only",
+        "positive_checks": 0,
+        "negative_controls": 0,
+        "shortcut_checks": 0,
+        "reset_replay_checks": 0,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": null
+      },
+      "tags": [
+        "core",
+        "blackbox",
+        "docker",
+        "localhost-only"
+      ]
+    },
+    {
+      "machine_id": "M10",
+      "service": "canvas",
+      "profile": null,
+      "product": "Kiteboard collaboration",
+      "family": "Node/EJS",
+      "tier": "core",
+      "stack": "Node/EJS",
+      "base_url": "http://127.0.0.1:18010",
+      "domain_urls": {
+        "zero_config": "http://canvas.arena.localhost:18080",
+        "managed_hosts": "http://canvas.arena.test:18080"
+      },
+      "port": 18010,
+      "compose_services": [
+        "canvas",
+        "arena-router"
+      ],
+      "private_dependencies": [],
+      "objective_coverage": {
+        "planned": 12,
+        "catalogued": 7,
+        "acceptance_verified": 0,
+        "legacy_reference": 7,
+        "chains": 0
+      },
+      "acceptance": {
+        "status": "legacy_catalog_only",
+        "positive_checks": 0,
+        "negative_controls": 0,
+        "shortcut_checks": 0,
+        "reset_replay_checks": 0,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": null
+      },
+      "tags": [
+        "core",
+        "blackbox",
+        "docker",
+        "localhost-only"
+      ]
+    },
+    {
+      "machine_id": "M11",
+      "service": "spool",
+      "profile": null,
+      "product": "Backlog conversion warehouse",
+      "family": "Go",
+      "tier": "core",
+      "stack": "Go",
+      "base_url": "http://127.0.0.1:18011",
+      "domain_urls": {
+        "zero_config": "http://spool.arena.localhost:18080",
+        "managed_hosts": "http://spool.arena.test:18080"
+      },
+      "port": 18011,
+      "compose_services": [
+        "spool",
+        "arena-router"
+      ],
+      "private_dependencies": [],
+      "objective_coverage": {
+        "planned": 12,
+        "catalogued": 6,
+        "acceptance_verified": 0,
+        "legacy_reference": 6,
+        "chains": 0
+      },
+      "acceptance": {
+        "status": "legacy_catalog_only",
+        "positive_checks": 0,
+        "negative_controls": 0,
+        "shortcut_checks": 0,
+        "reset_replay_checks": 0,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": null
+      },
+      "tags": [
+        "core",
+        "blackbox",
+        "docker",
+        "localhost-only"
+      ]
+    },
+    {
+      "machine_id": "M12",
+      "service": "atlas",
+      "profile": null,
+      "product": "Alder & Rowe public site",
+      "family": "Nginx/static",
+      "tier": "core",
+      "stack": "Nginx/static",
+      "base_url": "http://127.0.0.1:18012",
+      "domain_urls": {
+        "zero_config": "http://atlas.arena.localhost:18080",
+        "managed_hosts": "http://atlas.arena.test:18080"
+      },
+      "port": 18012,
+      "compose_services": [
+        "atlas",
+        "arena-router"
+      ],
+      "private_dependencies": [],
+      "objective_coverage": {
+        "planned": 12,
+        "catalogued": 11,
+        "acceptance_verified": 0,
+        "legacy_reference": 11,
+        "chains": 3
+      },
+      "acceptance": {
+        "status": "legacy_catalog_only",
+        "positive_checks": 0,
+        "negative_controls": 0,
+        "shortcut_checks": 0,
+        "reset_replay_checks": 0,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": null
+      },
+      "tags": [
+        "core",
+        "blackbox",
+        "docker",
+        "localhost-only"
+      ]
+    },
+    {
+      "machine_id": "M13",
+      "service": "quorum",
+      "profile": null,
+      "product": "Quorum approval operations",
+      "family": ".NET/ASP.NET Core",
+      "tier": "core",
+      "stack": ".NET/ASP.NET Core",
+      "base_url": "http://127.0.0.1:18013",
+      "domain_urls": {
+        "zero_config": "http://quorum.arena.localhost:18080",
+        "managed_hosts": "http://quorum.arena.test:18080"
+      },
+      "port": 18013,
+      "compose_services": [
+        "quorum",
+        "arena-router"
+      ],
+      "private_dependencies": [],
+      "objective_coverage": {
+        "planned": 12,
+        "catalogued": 0,
+        "acceptance_verified": 0,
+        "legacy_reference": 0,
+        "chains": 0
+      },
+      "acceptance": {
+        "status": "legacy_catalog_only",
+        "positive_checks": 0,
+        "negative_controls": 0,
+        "shortcut_checks": 0,
+        "reset_replay_checks": 0,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": null
+      },
+      "tags": [
+        "core",
+        "blackbox",
+        "docker",
+        "localhost-only"
+      ]
+    },
+    {
+      "machine_id": "M14",
+      "service": "foundry",
+      "profile": null,
+      "product": "Kilnworks build room",
+      "family": "Python/Django/Redis",
+      "tier": "core",
+      "stack": "Python/Django/Redis",
+      "base_url": "http://127.0.0.1:18014",
+      "domain_urls": {
+        "zero_config": "http://foundry.arena.localhost:18080",
+        "managed_hosts": "http://foundry.arena.test:18080"
+      },
+      "port": 18014,
+      "compose_services": [
+        "foundry",
+        "foundry-redis",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "foundry-redis"
+      ],
+      "objective_coverage": {
+        "planned": 12,
+        "catalogued": 0,
+        "acceptance_verified": 0,
+        "legacy_reference": 0,
+        "chains": 0
+      },
+      "acceptance": {
+        "status": "legacy_catalog_only",
+        "positive_checks": 0,
+        "negative_controls": 0,
+        "shortcut_checks": 0,
+        "reset_replay_checks": 0,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": null
+      },
+      "tags": [
+        "core",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M15",
+      "service": "cacheline",
+      "profile": null,
+      "product": "Edgewise delivery console",
+      "family": "Nginx/Node multi-tier cache",
+      "tier": "core",
+      "stack": "Nginx/Node multi-tier cache",
+      "base_url": "http://127.0.0.1:18015",
+      "domain_urls": {
+        "zero_config": "http://cacheline.arena.localhost:18080",
+        "managed_hosts": "http://cacheline.arena.test:18080"
+      },
+      "port": 18015,
+      "compose_services": [
+        "cacheline",
+        "cacheline-origin",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cacheline-origin"
+      ],
+      "objective_coverage": {
+        "planned": 12,
+        "catalogued": 0,
+        "acceptance_verified": 0,
+        "legacy_reference": 0,
+        "chains": 0
+      },
+      "acceptance": {
+        "status": "legacy_catalog_only",
+        "positive_checks": 0,
+        "negative_controls": 0,
+        "shortcut_checks": 0,
+        "reset_replay_checks": 0,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": null
+      },
+      "tags": [
+        "core",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M16",
+      "service": "harbor",
+      "profile": null,
+      "product": "Tidevault object storage",
+      "family": "Rust/Axum",
+      "tier": "core",
+      "stack": "Rust/Axum",
+      "base_url": "http://127.0.0.1:18016",
+      "domain_urls": {
+        "zero_config": "http://harbor.arena.localhost:18080",
+        "managed_hosts": "http://harbor.arena.test:18080"
+      },
+      "port": 18016,
+      "compose_services": [
+        "harbor",
+        "arena-router"
+      ],
+      "private_dependencies": [],
+      "objective_coverage": {
+        "planned": 12,
+        "catalogued": 0,
+        "acceptance_verified": 0,
+        "legacy_reference": 0,
+        "chains": 0
+      },
+      "acceptance": {
+        "status": "legacy_catalog_only",
+        "positive_checks": 0,
+        "negative_controls": 0,
+        "shortcut_checks": 0,
+        "reset_replay_checks": 0,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": null
+      },
+      "tags": [
+        "core",
+        "blackbox",
+        "docker",
+        "localhost-only"
+      ]
+    },
+    {
+      "machine_id": "M17",
+      "service": "cms-wordpress",
+      "profile": "wordpress",
+      "product": "Pressroom",
+      "family": "WordPress",
+      "tier": "cms",
+      "stack": "WordPress-family training replica",
+      "base_url": "http://127.0.0.1:18017",
+      "domain_urls": {
+        "zero_config": "http://cms-wordpress.arena.localhost:18080",
+        "managed_hosts": "http://cms-wordpress.arena.test:18080"
+      },
+      "port": 18017,
+      "compose_services": [
+        "cms-wordpress",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M18",
+      "service": "cms-shopify",
+      "profile": "shopify",
+      "product": "Northcart",
+      "family": "Shopify",
+      "tier": "cms",
+      "stack": "Shopify-family training replica",
+      "base_url": "http://127.0.0.1:18018",
+      "domain_urls": {
+        "zero_config": "http://cms-shopify.arena.localhost:18080",
+        "managed_hosts": "http://cms-shopify.arena.test:18080"
+      },
+      "port": 18018,
+      "compose_services": [
+        "cms-shopify",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M19",
+      "service": "cms-wix",
+      "profile": "wix",
+      "product": "Canvasite",
+      "family": "Wix",
+      "tier": "cms",
+      "stack": "Wix-family training replica",
+      "base_url": "http://127.0.0.1:18019",
+      "domain_urls": {
+        "zero_config": "http://cms-wix.arena.localhost:18080",
+        "managed_hosts": "http://cms-wix.arena.test:18080"
+      },
+      "port": 18019,
+      "compose_services": [
+        "cms-wix",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M20",
+      "service": "cms-squarespace",
+      "profile": "squarespace",
+      "product": "Gallery",
+      "family": "Squarespace",
+      "tier": "cms",
+      "stack": "Squarespace-family training replica",
+      "base_url": "http://127.0.0.1:18020",
+      "domain_urls": {
+        "zero_config": "http://cms-squarespace.arena.localhost:18080",
+        "managed_hosts": "http://cms-squarespace.arena.test:18080"
+      },
+      "port": 18020,
+      "compose_services": [
+        "cms-squarespace",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M21",
+      "service": "cms-joomla",
+      "profile": "joomla",
+      "product": "Civicline",
+      "family": "Joomla",
+      "tier": "cms",
+      "stack": "Joomla-family training replica",
+      "base_url": "http://127.0.0.1:18021",
+      "domain_urls": {
+        "zero_config": "http://cms-joomla.arena.localhost:18080",
+        "managed_hosts": "http://cms-joomla.arena.test:18080"
+      },
+      "port": 18021,
+      "compose_services": [
+        "cms-joomla",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M22",
+      "service": "cms-tilda",
+      "profile": "tilda",
+      "product": "Tilestone",
+      "family": "Tilda",
+      "tier": "cms",
+      "stack": "Tilda-family training replica",
+      "base_url": "http://127.0.0.1:18022",
+      "domain_urls": {
+        "zero_config": "http://cms-tilda.arena.localhost:18080",
+        "managed_hosts": "http://cms-tilda.arena.test:18080"
+      },
+      "port": 18022,
+      "compose_services": [
+        "cms-tilda",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M23",
+      "service": "cms-webflow",
+      "profile": "webflow",
+      "product": "Flowcraft",
+      "family": "Webflow",
+      "tier": "cms",
+      "stack": "Webflow-family training replica",
+      "base_url": "http://127.0.0.1:18023",
+      "domain_urls": {
+        "zero_config": "http://cms-webflow.arena.localhost:18080",
+        "managed_hosts": "http://cms-webflow.arena.test:18080"
+      },
+      "port": 18023,
+      "compose_services": [
+        "cms-webflow",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M24",
+      "service": "cms-duda",
+      "profile": "duda",
+      "product": "AgencyDock",
+      "family": "Duda",
+      "tier": "cms",
+      "stack": "Duda-family training replica",
+      "base_url": "http://127.0.0.1:18024",
+      "domain_urls": {
+        "zero_config": "http://cms-duda.arena.localhost:18080",
+        "managed_hosts": "http://cms-duda.arena.test:18080"
+      },
+      "port": 18024,
+      "compose_services": [
+        "cms-duda",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M25",
+      "service": "cms-godaddy",
+      "profile": "godaddy",
+      "product": "Launchpad",
+      "family": "GoDaddy Website Builder",
+      "tier": "cms",
+      "stack": "GoDaddy Website Builder-family training replica",
+      "base_url": "http://127.0.0.1:18025",
+      "domain_urls": {
+        "zero_config": "http://cms-godaddy.arena.localhost:18080",
+        "managed_hosts": "http://cms-godaddy.arena.test:18080"
+      },
+      "port": 18025,
+      "compose_services": [
+        "cms-godaddy",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M26",
+      "service": "cms-drupal",
+      "profile": "drupal",
+      "product": "Canopy",
+      "family": "Drupal",
+      "tier": "cms",
+      "stack": "Drupal-family training replica",
+      "base_url": "http://127.0.0.1:18026",
+      "domain_urls": {
+        "zero_config": "http://cms-drupal.arena.localhost:18080",
+        "managed_hosts": "http://cms-drupal.arena.test:18080"
+      },
+      "port": 18026,
+      "compose_services": [
+        "cms-drupal",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M27",
+      "service": "cms-adobe",
+      "profile": "adobe",
+      "product": "Experience Studio",
+      "family": "Adobe Experience Manager",
+      "tier": "cms",
+      "stack": "Adobe Experience Manager-family training replica",
+      "base_url": "http://127.0.0.1:18027",
+      "domain_urls": {
+        "zero_config": "http://cms-adobe.arena.localhost:18080",
+        "managed_hosts": "http://cms-adobe.arena.test:18080"
+      },
+      "port": 18027,
+      "compose_services": [
+        "cms-adobe",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M28",
+      "service": "cms-google-sites",
+      "profile": "google-sites",
+      "product": "Siteboard",
+      "family": "Google Sites",
+      "tier": "cms",
+      "stack": "Google Sites-family training replica",
+      "base_url": "http://127.0.0.1:18028",
+      "domain_urls": {
+        "zero_config": "http://cms-google-sites.arena.localhost:18080",
+        "managed_hosts": "http://cms-google-sites.arena.test:18080"
+      },
+      "port": 18028,
+      "compose_services": [
+        "cms-google-sites",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M29",
+      "service": "cms-lovable",
+      "profile": "lovable",
+      "product": "Promptpage",
+      "family": "Lovable",
+      "tier": "cms",
+      "stack": "Lovable-family training replica",
+      "base_url": "http://127.0.0.1:18029",
+      "domain_urls": {
+        "zero_config": "http://cms-lovable.arena.localhost:18080",
+        "managed_hosts": "http://cms-lovable.arena.test:18080"
+      },
+      "port": 18029,
+      "compose_services": [
+        "cms-lovable",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M30",
+      "service": "cms-prestashop",
+      "profile": "prestashop",
+      "product": "Parcelshop",
+      "family": "PrestaShop",
+      "tier": "cms",
+      "stack": "PrestaShop-family training replica",
+      "base_url": "http://127.0.0.1:18030",
+      "domain_urls": {
+        "zero_config": "http://cms-prestashop.arena.localhost:18080",
+        "managed_hosts": "http://cms-prestashop.arena.test:18080"
+      },
+      "port": 18030,
+      "compose_services": [
+        "cms-prestashop",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M31",
+      "service": "cms-bitrix",
+      "profile": "bitrix",
+      "product": "Workgrid",
+      "family": "Bitrix",
+      "tier": "cms",
+      "stack": "Bitrix-family training replica",
+      "base_url": "http://127.0.0.1:18031",
+      "domain_urls": {
+        "zero_config": "http://cms-bitrix.arena.localhost:18080",
+        "managed_hosts": "http://cms-bitrix.arena.test:18080"
+      },
+      "port": 18031,
+      "compose_services": [
+        "cms-bitrix",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M32",
+      "service": "cms-weebly",
+      "profile": "weebly",
+      "product": "Pagelet",
+      "family": "Weebly",
+      "tier": "cms",
+      "stack": "Weebly-family training replica",
+      "base_url": "http://127.0.0.1:18032",
+      "domain_urls": {
+        "zero_config": "http://cms-weebly.arena.localhost:18080",
+        "managed_hosts": "http://cms-weebly.arena.test:18080"
+      },
+      "port": 18032,
+      "compose_services": [
+        "cms-weebly",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M33",
+      "service": "cms-typo3",
+      "profile": "typo3",
+      "product": "Chronicle",
+      "family": "TYPO3",
+      "tier": "cms",
+      "stack": "TYPO3-family training replica",
+      "base_url": "http://127.0.0.1:18033",
+      "domain_urls": {
+        "zero_config": "http://cms-typo3.arena.localhost:18080",
+        "managed_hosts": "http://cms-typo3.arena.test:18080"
+      },
+      "port": 18033,
+      "compose_services": [
+        "cms-typo3",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M34",
+      "service": "cms-jimdo",
+      "profile": "jimdo",
+      "product": "Quicksite",
+      "family": "Jimdo",
+      "tier": "cms",
+      "stack": "Jimdo-family training replica",
+      "base_url": "http://127.0.0.1:18034",
+      "domain_urls": {
+        "zero_config": "http://cms-jimdo.arena.localhost:18080",
+        "managed_hosts": "http://cms-jimdo.arena.test:18080"
+      },
+      "port": 18034,
+      "compose_services": [
+        "cms-jimdo",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M35",
+      "service": "cms-opencart",
+      "profile": "opencart",
+      "product": "Cartline",
+      "family": "OpenCart",
+      "tier": "cms",
+      "stack": "OpenCart-family training replica",
+      "base_url": "http://127.0.0.1:18035",
+      "domain_urls": {
+        "zero_config": "http://cms-opencart.arena.localhost:18080",
+        "managed_hosts": "http://cms-opencart.arena.test:18080"
+      },
+      "port": 18035,
+      "compose_services": [
+        "cms-opencart",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M36",
+      "service": "cms-tiendanube",
+      "profile": "tiendanube",
+      "product": "Cloudshop",
+      "family": "Nuvemshop/Tiendanube",
+      "tier": "cms",
+      "stack": "Nuvemshop/Tiendanube-family training replica",
+      "base_url": "http://127.0.0.1:18036",
+      "domain_urls": {
+        "zero_config": "http://cms-tiendanube.arena.localhost:18080",
+        "managed_hosts": "http://cms-tiendanube.arena.test:18080"
+      },
+      "port": 18036,
+      "compose_services": [
+        "cms-tiendanube",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M37",
+      "service": "cms-ghost",
+      "profile": "ghost",
+      "product": "Nightjar",
+      "family": "Ghost",
+      "tier": "cms",
+      "stack": "Ghost-family training replica",
+      "base_url": "http://127.0.0.1:18037",
+      "domain_urls": {
+        "zero_config": "http://cms-ghost.arena.localhost:18080",
+        "managed_hosts": "http://cms-ghost.arena.test:18080"
+      },
+      "port": 18037,
+      "compose_services": [
+        "cms-ghost",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M38",
+      "service": "cms-moodle",
+      "profile": "moodle",
+      "product": "Coursedeck",
+      "family": "Moodle",
+      "tier": "cms",
+      "stack": "Moodle-family training replica",
+      "base_url": "http://127.0.0.1:18038",
+      "domain_urls": {
+        "zero_config": "http://cms-moodle.arena.localhost:18080",
+        "managed_hosts": "http://cms-moodle.arena.test:18080"
+      },
+      "port": 18038,
+      "compose_services": [
+        "cms-moodle",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M39",
+      "service": "cms-mediawiki",
+      "profile": "mediawiki",
+      "product": "Commonroom",
+      "family": "MediaWiki",
+      "tier": "cms",
+      "stack": "MediaWiki-family training replica",
+      "base_url": "http://127.0.0.1:18039",
+      "domain_urls": {
+        "zero_config": "http://cms-mediawiki.arena.localhost:18080",
+        "managed_hosts": "http://cms-mediawiki.arena.test:18080"
+      },
+      "port": 18039,
+      "compose_services": [
+        "cms-mediawiki",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M40",
+      "service": "cms-strapi",
+      "profile": "strapi",
+      "product": "Fieldbase",
+      "family": "Strapi",
+      "tier": "cms",
+      "stack": "Strapi-family training replica",
+      "base_url": "http://127.0.0.1:18040",
+      "domain_urls": {
+        "zero_config": "http://cms-strapi.arena.localhost:18080",
+        "managed_hosts": "http://cms-strapi.arena.test:18080"
+      },
+      "port": 18040,
+      "compose_services": [
+        "cms-strapi",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "cms",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M41",
+      "service": "platform-laravel",
+      "profile": "laravel",
+      "product": "Novadesk",
+      "family": "Laravel",
+      "tier": "platform",
+      "stack": "Laravel-style training application",
+      "base_url": "http://127.0.0.1:18041",
+      "domain_urls": {
+        "zero_config": "http://platform-laravel.arena.localhost:18080",
+        "managed_hosts": "http://platform-laravel.arena.test:18080"
+      },
+      "port": 18041,
+      "compose_services": [
+        "platform-laravel",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "platform",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M42",
+      "service": "platform-django",
+      "profile": "django",
+      "product": "Cabinet",
+      "family": "Django",
+      "tier": "platform",
+      "stack": "Django-style training application",
+      "base_url": "http://127.0.0.1:18042",
+      "domain_urls": {
+        "zero_config": "http://platform-django.arena.localhost:18080",
+        "managed_hosts": "http://platform-django.arena.test:18080"
+      },
+      "port": 18042,
+      "compose_services": [
+        "platform-django",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "platform",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M43",
+      "service": "platform-nextjs",
+      "profile": "nextjs",
+      "product": "Frontmatter",
+      "family": "Next.js",
+      "tier": "platform",
+      "stack": "Next.js-style training application",
+      "base_url": "http://127.0.0.1:18043",
+      "domain_urls": {
+        "zero_config": "http://platform-nextjs.arena.localhost:18080",
+        "managed_hosts": "http://platform-nextjs.arena.test:18080"
+      },
+      "port": 18043,
+      "compose_services": [
+        "platform-nextjs",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "platform",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    },
+    {
+      "machine_id": "M44",
+      "service": "platform-spring",
+      "profile": "spring",
+      "product": "PortalOne",
+      "family": "Spring",
+      "tier": "platform",
+      "stack": "Spring-style training application",
+      "base_url": "http://127.0.0.1:18044",
+      "domain_urls": {
+        "zero_config": "http://platform-spring.arena.localhost:18080",
+        "managed_hosts": "http://platform-spring.arena.test:18080"
+      },
+      "port": 18044,
+      "compose_services": [
+        "platform-spring",
+        "cms-metadata",
+        "cms-gateway",
+        "arena-router"
+      ],
+      "private_dependencies": [
+        "cms-metadata"
+      ],
+      "objective_coverage": {
+        "planned": 13,
+        "catalogued": 13,
+        "acceptance_verified": 13,
+        "legacy_reference": 0,
+        "chains": 2
+      },
+      "acceptance": {
+        "status": "full_acceptance_verified",
+        "positive_checks": 13,
+        "negative_controls": 15,
+        "shortcut_checks": 3,
+        "reset_replay_checks": 9,
+        "smoke_verifier": "scripts/smoke.py",
+        "objective_verifier": "scripts/verify_cms_suite.py"
+      },
+      "tags": [
+        "platform",
+        "blackbox",
+        "docker",
+        "localhost-only",
+        "multi-container"
+      ]
+    }
+  ]
+}

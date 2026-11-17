@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en" data-layout="{{ experience.layout }}" style="--accent:{{ profile.accent }};--accent-2:{{ experience.accent2 }}">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="data:,"><title>{{ experience.primary }} — {{ profile.brand }}</title><link rel="stylesheet" href="/static/app.css"><link rel="stylesheet" href="/static/experience.css"></head>
+<body data-category="{{ profile.category }}" data-layout="{{ experience.layout }}" data-font="{{ experience.font }}" class="product-page">
+<a class="skip" href="#main">Skip to content</a>{% include "_nav.html" %}
+<main id="main" class="collection-page">
+  <header class="collection-hero"><div><p class="eyebrow">{{ experience.primary }} library</p><h1>A complete view of what moves next.</h1><p>{{ experience.summary }}</p></div><a class="button primary" href="/workspace">Open workspace</a></header>
+  <section class="collection-toolbar" aria-label="Collection controls"><div class="search-box"><span>⌕</span><input aria-label="Search collection" placeholder="Search {{ experience.primary|lower }}"></div><button>All status</button><button>Owner</button><button>Last updated</button><span>{{ 18 + experience.rows|length }} items</span></section>
+  <section class="collection-grid">
+    {% for row in experience.rows %}<article class="collection-card"><div class="card-art art-{{ loop.index }}"><span>{{ experience.icon }}</span><i></i></div><div class="card-copy"><small>{{ experience.stages[loop.index0] }} · {{ experience.secondary }}</small><h2>{{ row }}</h2><p>{{ ["A considered item with its ownership and next decision attached.","Ready for the next team handoff and a focused review window.","Scheduled with the context needed for a clean release."][loop.index0] }}</p><footer><span>{{ ["AR","MO","SK"][loop.index0] }}</span><time>Updated {{ loop.index }}h ago</time><a href="/api/content/1">Open</a></footer></div></article>{% endfor %}
+    <article class="collection-card new-card"><a href="/workspace"><span>＋</span><b>Create {{ experience.primary|lower }}</b><small>Start with a clear owner and state.</small></a></article>
+  </section>
+</main>{% include "_footer.html" %}<script src="/static/app.js" defer></script></body></html>

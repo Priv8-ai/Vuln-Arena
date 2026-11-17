@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en" data-theme="forge">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#140E0C">
+<meta name="description" content="Foundry CI pricing for a single job line, a plant, or a full works.">
+<title>Pricing — Foundry CI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/chrome.css">
+<link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <a class="brand" href="/"><span class="brand-mark">Fp</span> Foundry CI</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links">Menu</button>
+  <nav id="site-nav-links" class="nav-links" aria-label="Primary">
+    <a href="/product">Product</a>
+    <a href="/pricing" class="is-active">Pricing</a>
+    <a href="/customers">Plants</a>
+    <a href="/guide">Docs</a>
+    <a class="nav-cta" href="/guide">Read the routes</a>
+  </nav>
+</header>
+<main class="page" id="main">
+  <h1>Price the line, not the hook.</h1>
+  <p class="lede">Webhooks are included. You pay for how many jobs the plant expects to have in flight.</p>
+  <div class="price-grid">
+    <article class="card price">
+      <span class="chip">Job</span>
+      <p class="amt">$0 <span>/ line</span></p>
+      <p>Manual runs and a template preview for a single bench.</p>
+      <ul>
+        <li>Hook test</li>
+        <li>One queue</li>
+        <li>Template render</li>
+      </ul>
+      <a class="btn btn-ghost" href="/#name">Render a name</a>
+    </article>
+    <article class="card price">
+      <span class="chip">Pipeline</span>
+      <p class="amt">$79 <span>/ month</span></p>
+      <p>The plan a plant buys when the night shift queues work unattended.</p>
+      <ul>
+        <li>Pending jobs you can still edit</li>
+        <li>File download</li>
+        <li>Business-day support</li>
+      </ul>
+      <a class="btn btn-primary" href="/customers">See the plants</a>
+    </article>
+    <article class="card price">
+      <span class="chip">Works</span>
+      <p class="amt">$640 <span>/ month</span></p>
+      <p>Several lines, a named operator, and a review of how jobs are finalized.</p>
+      <ul>
+        <li>Parallel queues</li>
+        <li>Artifact archive</li>
+        <li>A change window you book</li>
+      </ul>
+      <a class="btn btn-ghost" href="/changelog">Latest cut</a>
+    </article>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand" href="/"><span class="brand-mark">Fp</span> Foundry CI</a>
+      <p>The job line for plants that start work from a webhook.</p>
+    </div>
+    <div>
+      <h4>Line</h4>
+      <a href="/product">Product</a>
+      <a href="/customers">Plants</a>
+      <a href="/changelog">Changelog</a>
+    </div>
+    <div>
+      <h4>Run</h4>
+      <a href="/guide">Docs</a>
+      <a href="/template?name=world">Template</a>
+    </div>
+  </div>
+  <p class="foot-note">© 2026 Foundry CI.</p>
+</footer>
+<script src="/assets/chrome.js"></script>
+<script src="/assets/app.js"></script>
+</body>
+</html>

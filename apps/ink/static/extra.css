@@ -1,0 +1,35 @@
+.skip{position:absolute;left:-999px}
+.skip:focus{left:1rem;top:1rem;z-index:80;padding:.45rem .7rem;background:var(--accent);color:var(--accent-ink);border-radius:8px}
+@media(max-width:860px){
+  .site-nav{height:auto;flex-wrap:wrap;padding-top:.65rem;padding-bottom:.65rem}
+  .nav-links{width:100%}
+}
+.mast{
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:baseline;
+  border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  padding:.45rem 0;margin-bottom:1.4rem;font-size:.95rem
+}
+.issue{
+  font-family:var(--font-display);font-weight:560;
+  font-size:clamp(4.2rem,14vw,8.5rem);line-height:.82;letter-spacing:-.045em;margin:0
+}
+.contents{list-style:none;padding:0;margin:1.4rem 0 0}
+.contents a{
+  display:grid;grid-template-columns:7.5rem 1fr auto;gap:1rem;align-items:baseline;
+  padding:.95rem 0;border-bottom:1px solid var(--border);color:var(--ink)
+}
+.contents a:hover{opacity:1}
+.kicker{color:var(--muted)}
+.essay{max-width:38rem;font-size:1.22rem;line-height:1.55}
+.dropcap::first-letter{
+  font-family:var(--font-display);float:left;font-size:3.5rem;line-height:.75;padding:.15rem .45rem 0 0
+}
+.pull{
+  font-family:var(--font-display);font-size:clamp(1.7rem,3vw,2.3rem);
+  line-height:1.22;letter-spacing:-.02em;margin:0;max-width:16ch
+}
+.colophon{max-width:36rem}
+@media(max-width:700px){.contents a{grid-template-columns:1fr}}
+.form-stack input,.form-stack textarea,.form-stack select{display:block}
+.form-stack .btn{margin-top:.9rem}
+h1,h2,[id]{scroll-margin-top:5.5rem}
